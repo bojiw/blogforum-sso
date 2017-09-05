@@ -19,23 +19,23 @@ public class DataEntity<T> extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createDate; 
 	// 创建人
-	private User createUser; 
+	private String createUser; 
 	// 最后修改时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateDate; 
 	// 最后修改人
-	private User updateUser; 
+	private String updateUser; 
 
 	public DataEntity() {
 	}
 
 
 
-	public User getCreateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(User createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
@@ -64,11 +64,11 @@ public class DataEntity<T> extends BaseEntity {
 
 
 
-	public User getUpdateUser() {
+	public String getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(User updateUser) {
+	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
 

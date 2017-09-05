@@ -40,7 +40,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 
 	/** session开头key */
 	@Value("$myValue.session_key")
-	private String			SESSION_KEY;
+	protected String			SESSION_KEY;
 
 	/**
 	 * 获取验证码并setEx值到redis

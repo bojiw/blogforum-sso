@@ -1,4 +1,5 @@
 $(function(){
+	//手机注册码
 	$("#verification").click(function(){
 		
 		var flag = verifica();
@@ -13,7 +14,7 @@ $(function(){
 		}
 		var isMobile=/^(?:13\d|15\d)\d{5}(\d{3}|\*{3})$/;   
 		var isPhone=/^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;
-		if(!isMobile.test(mobile) && !isPhone.test(mobile)){
+		if(!isMobile.test(iphone) && !isPhone.test(iphone)){
 			layer.tips('手机号填写不正确!','[name = "iphone"]',{tips:[2,"#3595CC"]});
 			$("[name = 'iphone']").focus();
 			return false;
@@ -38,6 +39,7 @@ $(function(){
 			}
 		});
 	});
+	//邮箱注册码
 	$("#mailverification").click(function(){
 		var flag = verifica();
 		if(!flag){
@@ -149,7 +151,7 @@ $(function(){
 		});
 	
 	});
-
+	//邮箱注册
 	$("#mailRegister").click(function(){
 
 		var flag = verifica();

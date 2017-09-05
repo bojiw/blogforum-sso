@@ -31,10 +31,10 @@
 				layer.msg(data.msg);
 				$("[name='name']").focus();
 			} else {
-				location.href="http://www.baidu.com";
+				location.href=data.data;
 			}
 			if(data.status == "703"){
-				location.href="http://www.baidu.com";
+				location.href=data.data;
 			}
 		});
 		

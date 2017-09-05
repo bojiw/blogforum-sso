@@ -1,6 +1,6 @@
 server:
     #项目启动端口
-    port: 8010
+    port: 80
     tomcat: 
       # tomcat的URI编码
       uri-encoding: utf-8
@@ -14,7 +14,7 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://119.23.247.225:3306/blogforum_user?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password: bNVOqb7WKLX5Bjnw+LMv92taj25KOxDimXxILPQjw42wgv+1lHzOH8kr97xDwWdhpY67QuYCS7sWN4W46YbkFA==
+        password: mxm2XVZ32/H9YRkRzGLZ+EuwnpxbcFItcHcSY0ybQQqJdguXayUsKzLsZd5WiLyMwvGDkqhJILcgQjDzc8GSyw==
         
         
         # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -48,7 +48,7 @@ spring:
       # Redis服务器连接端口
       port: 6379
       # Redis服务器连接密码
-      password: 123456
+      password: Alimima01
       pool:
         # 连接池最大连接数（使用负值表示没有限制）
         maxActive: 8
@@ -85,7 +85,8 @@ myValue:
   session_time: 1800
   #注册时保存到redis的值
   REGISTER_KEY: register_key
-
+  #笔记系统地址
+  noteServerUrl: http://note.bojisystem.com
 
 
 

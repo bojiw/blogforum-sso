@@ -1,9 +1,9 @@
 package com.blogforum.sso.service.loginregistration;
 
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.blogforum.common.enums.BizError;
@@ -17,32 +17,35 @@ import com.blogforum.sso.service.constant.ServiceConstant;
 @Component
 public class Login extends AbstractLoginRegister {
 
+	/** note笔记系统地址 */
+	@Value("${myValue.noteServerUrl}")
+	private String noteServerUrl;
+
 	@Override
 	public blogforumResult execute(LoginRegisterContext context) {
 		//获取token 判断用户是否已经登录
 		String token = CookieUtils.getCookie(context.getHttpServletRequest(), ServiceConstant.cookieToken);
 		if (StringUtils.isNotBlank(token)) {
-			String userJSON = redisClient.get(token);
+			String userJSON = redisClient.get(SESSION_KEY + ":" + token);
 			if (StringUtils.isNotBlank(userJSON)) {
 				redisClient.expire(token, SESSION_TIME);
-				return blogforumResult.ok();
+				return blogforumResult.ok(noteServerUrl);
 			}
 		}
 		User user = context.getUser();
 		super.checkUserPwd(user);
 		//判断用户名密码是否正确 正确则设置session和cookie
 		isUserAndsetSession(user, context.getHttpServletResponse());
-		return blogforumResult.ok();
+		return blogforumResult.ok(noteServerUrl);
 	}
-	
-	
+
 	/**
-	 * 判断用户名密码是否正确
+	 * 判断用户名密码是否正确并设置session
 	 * 
 	 * @author: Administrator
 	 * @time: 2017年7月16日
 	 */
-	private void isUserAndsetSession(User user,HttpServletResponse httpServletResponse){
+	private void isUserAndsetSession(User user, HttpServletResponse httpServletResponse) {
 		//获取数据库中用户名对应的salt
 		User saltUser = userMapper.getUserByName(user);
 		Preconditions.checkNotNull(saltUser, BizError.NO_USER);
@@ -54,10 +57,6 @@ public class Login extends AbstractLoginRegister {
 		Preconditions.checkNotNull(newUser, BizError.FAIL_USERPWD);
 		//用户存在则保存到session和cookie中
 		SessionCookie(newUser, httpServletResponse);
-		
 	}
-	
-	
-	
 
 }
