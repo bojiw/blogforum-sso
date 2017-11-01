@@ -84,9 +84,9 @@ myValue:
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值
-  REGISTER_KEY: register_key
+  REGISTER_KEY: REGISTER_KEY
   #笔记系统地址
-  noteServerUrl: http://note.bojisystem.com
+  noteServerUrl: http://note.bojiw.com
 
 
 

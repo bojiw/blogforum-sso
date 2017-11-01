@@ -27,15 +27,17 @@
 			cmCode:"login"
 			},
 			function(data) {
+			if(data.status == "703"){
+				location.href=data.data;
+				return;
+			}
 			if(data.status != "200") {
 				layer.msg(data.msg);
 				$("[name='name']").focus();
 			} else {
 				location.href=data.data;
 			}
-			if(data.status == "703"){
-				location.href=data.data;
-			}
+			
 		});
 		
 		
