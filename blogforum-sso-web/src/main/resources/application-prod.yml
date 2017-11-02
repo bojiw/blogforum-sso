@@ -87,6 +87,8 @@ myValue:
   REGISTER_KEY: REGISTER_KEY
   #笔记系统地址
   noteServerUrl: http://note.bojiw.com
+  #sso顶级域名地址
+  domain: bojiw.com
 
 
 

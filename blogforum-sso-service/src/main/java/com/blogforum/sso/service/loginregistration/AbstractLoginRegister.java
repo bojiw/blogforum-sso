@@ -41,6 +41,10 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	/** session开头key */
 	@Value("$myValue.session_key")
 	protected String			SESSION_KEY;
+	
+	
+	@Value("$myValue.domain")
+	protected String			DOMAIN;
 
 	/**
 	 * 获取验证码并setEx值到redis
@@ -136,7 +140,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		StringBuffer newToken = new StringBuffer();
 		newToken.append(SESSION_KEY).append(":").append(token);
 		redisClient.setExpire(newToken.toString(), JSON.toJSONString(user), SESSION_TIME);
-		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token);
+		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token,"/",DOMAIN);
 	}
 
 }
