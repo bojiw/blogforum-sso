@@ -84,9 +84,11 @@ myValue:
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值
-  REGISTER_KEY: REGISTER_KEY
+  register_key: REGISTER_KEY
   #笔记系统地址
   noteServerUrl: http://note.bojiw.com
+  #session开头key
+  session_key: SESSION
   #sso顶级域名地址
   domain: bojiw.com
 

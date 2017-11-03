@@ -35,15 +35,15 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	protected int			SESSION_TIME;
 
 	/** 注册时保存到redis的值 */
-	@Value("${myValue.REGISTER_KEY}")
+	@Value("${myValue.register_key}")
 	protected String			REGISTER_KEY;
 
 	/** session开头key */
-	@Value("$myValue.session_key")
+	@Value("${myValue.session_key}")
 	protected String			SESSION_KEY;
 	
 	
-	@Value("$myValue.domain")
+	@Value("${myValue.domain}")
 	protected String			DOMAIN;
 
 	/**
