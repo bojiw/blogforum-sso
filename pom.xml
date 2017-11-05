@@ -15,6 +15,8 @@
   	<module>blogforum-sso-dao</module>
   	<module>blogforum-sso-pojo</module>
   	<module>blogforum-sso-common</module>
+  	<module>blogforum-sso-facade</module>
+  	<module>blogforum-sso-interface</module>
   </modules>
   
     <dependencyManagement>
@@ -88,6 +90,22 @@
             	<groupId>com.blogforum</groupId>
             	<artifactId>blogforum-sso-common</artifactId>
             	<version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            
+            <dependency>
+			    <groupId>com.blogforum</groupId>
+			    <artifactId>blogforum-sso-facade</artifactId>
+			    <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+			    <groupId>com.blogforum</groupId>
+			    <artifactId>blogforum-sso-interface</artifactId>
+			    <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>dubbo</artifactId>
+			    <version>2.5.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

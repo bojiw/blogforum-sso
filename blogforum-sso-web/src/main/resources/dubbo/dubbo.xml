@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://code.alibabatech.com/schema/dubbo  
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">  
+  
+    
+    
+    <!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:dubbo/*.properties" />
+    <!-- 提供方应用信息，用于计算依赖关系 -->  
+    <dubbo:application name="${dubbo.application.name}" />  
+  
+    <!-- 注册中心暴露服务地址 -->  
+   <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />  
+  
+    <!-- 暴露服务 -->  
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />  
+      
+    <dubbo:service interface="blogforum.sso.facade.facade.user.UserServerFacade"  
+        ref="userServerFacade" retries="0" timeout="6000" />  
+     <bean id="userServerFacade" class="blogforum.sso.service.user.UserServerFacadeImpl"></bean>
+</beans>  
