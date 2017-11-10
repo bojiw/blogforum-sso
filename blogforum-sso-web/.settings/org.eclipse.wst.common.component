@@ -14,7 +14,7 @@
         <dependent-module archiveName="blogforum-sso-facade-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-sso-facade/blogforum-sso-facade">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="blogforum-sso-interface-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-sso-interface/blogforum-sso-interface">
+        <dependent-module archiveName="blogforum-sso-integration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-sso-integration/blogforum-sso-integration">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="blogforum-sso-dao-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/blogforum-sso-dao/blogforum-sso-dao">

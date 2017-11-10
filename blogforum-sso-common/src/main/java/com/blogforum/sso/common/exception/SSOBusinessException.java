@@ -1,7 +1,7 @@
 package com.blogforum.sso.common.exception;
 
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.sso.common.enums.SSOBizError;
 
 /**
@@ -35,11 +35,11 @@ public class SSOBusinessException extends RuntimeException {
 		super(message, cause);
 	}
 
-	public SSOBusinessException(BizError bizError,Exception e){
+	public SSOBusinessException(BizErrorEnum bizError,Exception e){
 		super(bizError.getMsg(),e);
 		this.code = bizError.getCode();
 	}
-	public SSOBusinessException(BizError bizError){
+	public SSOBusinessException(BizErrorEnum bizError){
 		super(bizError.getMsg());
 		this.code = bizError.getCode();
 	}

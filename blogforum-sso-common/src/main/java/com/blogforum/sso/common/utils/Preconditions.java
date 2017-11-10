@@ -2,7 +2,7 @@ package com.blogforum.sso.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.sso.common.enums.SSOBizError;
 import com.blogforum.sso.common.exception.SSOBusinessException;
 /**
@@ -17,7 +17,7 @@ public class Preconditions {
 	 * @param obj
 	 * @param msg
 	 */
-	public static void checkNotNull(Object obj,BizError bizError){
+	public static void checkNotNull(Object obj,BizErrorEnum bizError){
 		
 		try {
 			if (obj instanceof String) {
@@ -55,7 +55,7 @@ public class Preconditions {
 	 * @param obj
 	 * @param msg
 	 */
-	public static void checkNull(Object obj,BizError bizError){
+	public static void checkNull(Object obj,BizErrorEnum bizError){
 		if (obj != null) {
 			throw new SSOBusinessException(bizError);
 		}

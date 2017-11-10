@@ -1,6 +1,6 @@
 server:
     #项目启动端口
-    port: 8090
+    port: 80
     tomcat: 
       # tomcat的URI编码
       uri-encoding: utf-8
@@ -77,16 +77,31 @@ mybatis:
     type-aliases-package: com.blogforum.sso.pojo.entity
     mapper-locations: classpath:mapper/*.xml
     
+dubbo: 
+    application: 
+      name: blogforum-sso
+      #设置超时时间为3000毫秒
+      timeout: 3000
+    registry: 
+      #使用上面注册中心和注册中心地址 
+      protocol: zookeeper
+      address: 10.10.10.106:2181
+    protocol:
+      #使用dubbo作为通信协议 端口为20880
+      name: dubbo
+      port: 20880
+    
+    
     
 #sso服务器地址
 myValue: 
-  ssoServerUrl: http://119.23.247.225:8011
+  ssoServerUrl: http://127.0.0.1
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值
   register_key: REGISTER_KEY
   #笔记系统地址
-  noteServerUrl: 127.0.0.1:8080
+  noteServerUrl: http://127.0.0.1:8080
   #session开头key
   session_key: SESSION
   #sso顶级域名地址

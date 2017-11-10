@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.alibaba.fastjson.JSON;
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.sso.common.enums.SSOBizError;
@@ -71,8 +71,8 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	 * @time: 2017年7月16日
 	 */
 	protected void checkUserPwd(User user) {
-		Preconditions.checkNotNull(user.getUsername(), BizError.NULL_USERPWD);
-		Preconditions.checkNotNull(user.getPassword(), BizError.NULL_USERPWD);
+		Preconditions.checkNotNull(user.getUsername(), BizErrorEnum.NULL_USERPWD);
+		Preconditions.checkNotNull(user.getPassword(), BizErrorEnum.NULL_USERPWD);
 
 	}
 
@@ -139,7 +139,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		String token = UUIDCreateUtils.getUUID();
 		StringBuffer newToken = new StringBuffer();
 		newToken.append(SESSION_KEY).append(":").append(token);
-		redisClient.setExpire(newToken.toString(), JSON.toJSONString(user), SESSION_TIME);
+		redisClient.setExpire(newToken.toString(), user, SESSION_TIME);
 		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token,"/",DOMAIN);
 	}
 

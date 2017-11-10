@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.sso.common.exception.SSOBusinessException;
 
 /**
@@ -46,7 +46,7 @@ public class RedisTransactionalClientImpl implements RedisClient {
 		}
 
 		if (!result) {
-			throw new RedisSystemException(MessageFormat.format("redis插入数据失败,key:{0},value:{1}", key, value), new SSOBusinessException(BizError.SYS_EXCEPTION));
+			throw new RedisSystemException(MessageFormat.format("redis插入数据失败,key:{0},value:{1}", key, value), new SSOBusinessException(BizErrorEnum.SYS_EXCEPTION));
 		}
 		return result;
 	}

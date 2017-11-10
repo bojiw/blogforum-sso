@@ -2,7 +2,7 @@ package com.blogforum.sso.service.loginregistration;
 
 import java.util.Map;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.sso.common.exception.SSOBusinessException;
 
 public class LoginRegisterFactoryImpl implements LoginRegisterFactory {
@@ -12,7 +12,7 @@ public class LoginRegisterFactoryImpl implements LoginRegisterFactory {
 	public LoginRegister getManager(String cmCode){
 		LoginRegister loginRegistration = manager.get(cmCode);
 		if (loginRegistration == null) {
-			throw new SSOBusinessException(BizError.ILLEGAL_PARAMETER);
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER);
 		}
 		return loginRegistration;
 	}

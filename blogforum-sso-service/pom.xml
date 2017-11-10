@@ -39,7 +39,7 @@
     
     <dependency>
 	    <groupId>com.blogforum</groupId>
-	    <artifactId>blogforum-sso-interface</artifactId>
+	    <artifactId>blogforum-sso-integration</artifactId>
     </dependency>
     
 	  <dependency>  

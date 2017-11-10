@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.common.utils.MD5SaltUtils;
@@ -48,13 +48,15 @@ public class Login extends AbstractLoginRegister {
 	private void isUserAndsetSession(User user, HttpServletResponse httpServletResponse) {
 		//获取数据库中用户名对应的salt
 		User saltUser = userMapper.getUserByName(user);
-		Preconditions.checkNotNull(saltUser, BizError.NO_USER);
+		Preconditions.checkNotNull(saltUser, BizErrorEnum.NO_USER);
 		//使用salt对用户上传的密码进行加密再重新设置
 		String encodePWD = MD5SaltUtils.encode(user.getPassword(), saltUser.getSalt());
 		user.setPassword(encodePWD);
 		//通过用户名密码获取用户
 		User newUser = userMapper.getUserByPwdName(user);
-		Preconditions.checkNotNull(newUser, BizError.FAIL_USERPWD);
+		Preconditions.checkNotNull(newUser, BizErrorEnum.FAIL_USERPWD);
+		//去掉保存的密码
+		newUser.setPassword("");
 		//用户存在则保存到session和cookie中
 		SessionCookie(newUser, httpServletResponse);
 	}

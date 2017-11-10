@@ -16,7 +16,7 @@
   	<module>blogforum-sso-pojo</module>
   	<module>blogforum-sso-common</module>
   	<module>blogforum-sso-facade</module>
-  	<module>blogforum-sso-interface</module>
+  	<module>blogforum-sso-integration</module>
   </modules>
   
     <dependencyManagement>
@@ -99,7 +99,7 @@
             </dependency>
             <dependency>
 			    <groupId>com.blogforum</groupId>
-			    <artifactId>blogforum-sso-interface</artifactId>
+			    <artifactId>blogforum-sso-integration</artifactId>
 			    <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

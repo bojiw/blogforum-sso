@@ -77,10 +77,24 @@ mybatis:
     type-aliases-package: com.blogforum.sso.pojo.entity
     mapper-locations: classpath:mapper/*.xml
     
+dubbo: 
+    application: 
+      name: blogforum-sso
+      #设置超时时间为3000毫秒
+      timeout: 3000
+    registry: 
+      #使用上面注册中心和注册中心地址 
+      protocol: zookeeper
+      address: 172.20.1.14:2181
+    protocol:
+      #使用dubbo作为通信协议 端口为20880
+      name: dubbo
+      port: 20880
+    
     
 #sso服务器地址
 myValue: 
-  ssoServiceUrl: http://119.23.247.225:8011
+  ssoServiceUrl: http://sso.bojiw.com
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值

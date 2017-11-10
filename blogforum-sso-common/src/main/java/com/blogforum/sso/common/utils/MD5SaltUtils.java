@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import com.blogforum.common.enums.BizError;
+import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.sso.common.exception.SSOBusinessException;
 
 public class MD5SaltUtils {
@@ -27,8 +27,8 @@ public class MD5SaltUtils {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			result = encoder16(md.digest((addSalt(rawPassword, salt).getBytes("UTF-8"))));
 		} catch (Exception e) {
-			logger.error(BizError.FAIL_ENCODE.getMsg(), e);
-			throw new SSOBusinessException(BizError.SYS_EXCEPTION);
+			logger.error(BizErrorEnum.FAIL_ENCODE.getMsg(), e);
+			throw new SSOBusinessException(BizErrorEnum.SYS_EXCEPTION);
 		}
 		return result;
 	}
