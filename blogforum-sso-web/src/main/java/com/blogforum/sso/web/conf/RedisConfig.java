@@ -35,7 +35,7 @@ public class RedisConfig {
     }  
       
       
-    @Bean  
+    @Bean(name = "redisTemplate")
     public RedisTemplate<?, ?> getRedisTemplate(){  
         RedisTemplate<?,?> template = new StringRedisTemplate(getConnectionFactory());  
         return template;  

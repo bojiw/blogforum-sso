@@ -184,4 +184,13 @@ public class UserVO extends BaseVO {
 		this.birthCity = birthCity;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [id=" + id + ", username=" + username + ", role=" + role + ", email=" + email + ", iphone="
+							+ iphone + ", loginDate=" + loginDate + ", loginIp=" + loginIp + ", status=" + status
+							+ ", image=" + image + ", remarks=" + remarks + ", provinceLocation=" + provinceLocation
+							+ ", cityLocation=" + cityLocation + ", birthProvince=" + birthProvince + ", birthCity="
+							+ birthCity + "]";
+	}
+
 }

@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.RedisSystemException;
@@ -23,7 +25,8 @@ import com.alibaba.fastjson.JSON;
  */
 @Service("redisClient")
 public class RedisClientImpl implements RedisClient {
-	@Autowired
+	
+	@Resource
 	private RedisTemplate<String, ?> redisTemplate;
 
 	@Override
