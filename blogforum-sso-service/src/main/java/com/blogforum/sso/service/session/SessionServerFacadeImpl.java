@@ -1,21 +1,19 @@
-package blogforum.sso.service.user;
+package com.blogforum.sso.service.session;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.alibaba.fastjson.JSON;
-import com.blogforum.common.enums.BizErrorEnum;
-import com.blogforum.common.model.ErrorContext;
 import com.blogforum.common.model.Result;
 import com.blogforum.common.tools.BaseConverter;
 import com.blogforum.sso.dao.redis.RedisClient;
+import com.blogforum.sso.facade.model.UserVO;
+import com.blogforum.sso.facade.session.SessionServerFacade;
 import com.blogforum.sso.pojo.entity.User;
 
-import blogforum.sso.facade.model.UserVO;
-import blogforum.sso.facade.user.UserServerFacade;
+public class SessionServerFacadeImpl implements SessionServerFacade {
 
-public class UserServerFacadeImpl implements UserServerFacade {
 	/** redis客户端 */
 	@Autowired
 	protected RedisClient redisClient;
@@ -24,27 +22,24 @@ public class UserServerFacadeImpl implements UserServerFacade {
 	@Value("${myValue.session_key}")
 	protected String			SESSION_KEY;
 	
+	/** session过期时间 */
+	@Value("${myValue.session_time}")
+	protected int			SESSION_TIME;
+	
+	
 	@Override
 	public Result<Boolean> isLogin(String token) {
-		if (StringUtils.isEmpty(token)) {
-			return new Result<Boolean>(true, new ErrorContext(BizErrorEnum.ILLEGAL_PARAMETER.getCode(), null,
-								BizErrorEnum.ILLEGAL_PARAMETER.getMsg()), false);
-		}
 		//获取redis中保存的session信息
-		String userString = redisClient.get(token);
+		StringBuffer session = new StringBuffer(SESSION_KEY).append(":").append(token);
+		String userString = redisClient.get(session.toString());
 		if (StringUtils.isEmpty(userString)) {
 			return new Result<Boolean>(true, false);
 		}
 		return new Result<Boolean>(true, true);
 	}
-
+	
 	@Override
 	public Result<UserVO> getUserByToken(String token) {
-		
-		if (StringUtils.isEmpty(token)) {
-			return new Result<UserVO>(true, new ErrorContext(BizErrorEnum.ILLEGAL_PARAMETER.getCode(), null,
-								BizErrorEnum.ILLEGAL_PARAMETER.getMsg()), null);
-		}
 		UserVO userVO = getUserVOByToken(token);
 		return new Result<UserVO>(true, userVO);
 	}
@@ -67,14 +62,8 @@ public class UserServerFacadeImpl implements UserServerFacade {
 		User user = JSON.parseObject(userString,User.class);
 		BaseConverter<User, UserVO> userConverter = new BaseConverter<>();
 		UserVO userVO = userConverter.convert(user, UserVO.class);
+		redisClient.expire(session.toString(), SESSION_TIME);
 		return userVO;
-	}
-	
-	
-	@Override
-	public Result<UserVO> getUserByUserId(String userId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

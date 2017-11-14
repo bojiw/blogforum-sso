@@ -1,4 +1,4 @@
-package blogforum.sso.facade.model;
+package com.blogforum.sso.facade.model;
 
 import java.util.Date;
 
