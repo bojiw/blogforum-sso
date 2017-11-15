@@ -44,11 +44,11 @@ spring:
     #redis
     redis: 
       # Redis服务器地址
-      hostName: 119.23.247.225
+      hostName: 172.20.1.15
       # Redis服务器连接端口
       port: 6379
       # Redis服务器连接密码
-      password: Alimima01
+      password: wangwendi
       # 连接超时时间（毫秒）
       timeout: 6000
       # 单个请求最长等待时间
