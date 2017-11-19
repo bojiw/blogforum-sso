@@ -74,6 +74,7 @@ spring:
       properties:
       #使用ssl加密设置
         mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+
         
 mybatis:
     type-aliases-package: com.blogforum.sso.pojo.entity
@@ -93,7 +94,12 @@ dubbo:
       name: dubbo
       port: 20881
     
-    
+rabbitmq: 
+  addresses: 10.10.10.106:5672 
+  username: admin
+  password: 123456
+  publisher-confirms: true
+  virtual-host: blogforum
     
 #sso服务器地址
 myValue: 
