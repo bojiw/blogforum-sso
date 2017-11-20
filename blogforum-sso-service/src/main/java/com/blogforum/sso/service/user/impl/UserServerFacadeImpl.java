@@ -1,4 +1,4 @@
-package com.blogforum.sso.service.user;
+package com.blogforum.sso.service.user.impl;
 
 import com.blogforum.common.model.Result;
 import com.blogforum.sso.facade.model.UserVO;

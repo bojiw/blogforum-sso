@@ -58,7 +58,7 @@ public class AmqpConfig {
         connectionFactory.setVirtualHost(virtualHost);  
         connectionFactory.setPublisherConfirms(publisherConfirms); //开启消息的回调
         connectionFactory.setPublisherReturns(true);
-        connectionFactory.setChannelCacheSize(30);
+        connectionFactory.setChannelCacheSize(100);
         return connectionFactory;  
     }  
 
