@@ -94,8 +94,8 @@ dubbo:
       port: 20880
       
 rabbitmq: 
-  addresses: 10.10.10.106:5672 
-  username: admin
+  addresses: 172.20.1.17:5672 
+  username: blogforum
   password: 123456
   publisher-confirms: true
   virtual-host: blogforum
