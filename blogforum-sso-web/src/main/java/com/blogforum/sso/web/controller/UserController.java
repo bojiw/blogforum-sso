@@ -20,10 +20,10 @@ public class UserController {
 	@Autowired
 	private LoginRegisterFactory	loginRegisterFactory;
 
-
 	@PostMapping("/loginregister")
 	public blogforumResult loginregister(String cmCode, User user, String verificationCode,
 						HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+
 		//设置上下文
 		LoginRegisterContext context = new LoginRegisterContext();
 		context.setUser(user);

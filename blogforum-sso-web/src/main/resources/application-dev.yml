@@ -100,20 +100,21 @@ rabbitmq:
   password: 123456
   publisher-confirms: true
   virtual-host: blogforum
+  channelCacheSize: 100
     
 #sso服务器地址
 myValue: 
-  ssoServerUrl: http://10.10.10.212
+  ssoServerUrl: http://127.0.0.1
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值
   register_key: REGISTER_KEY
   #笔记系统地址
-  noteServerUrl: http://10.10.10.212:8080
+  noteServerUrl: http://127.0.0.1:8080
   #session开头key
   session_key: SESSION
   #sso顶级域名地址
-  domain: 10.10.10.212
+  domain: 127.0.0.1
 
 
 

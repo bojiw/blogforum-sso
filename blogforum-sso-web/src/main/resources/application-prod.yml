@@ -99,7 +99,7 @@ rabbitmq:
   password: 123456
   publisher-confirms: true
   virtual-host: blogforum
-    
+  channelCacheSize: 100
     
 #sso服务器地址
 myValue: 

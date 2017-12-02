@@ -3,7 +3,11 @@ package com.blogforum.sso.facade.enums;
 public enum SsoMsgExchangeNameEnum {
 
 	/**direct模式的交换机*/
-	SSO_DIRECT_EXCHANGE("sso-direct-exchange", "direct模式的交换机");
+	SSO_DIRECT_EXCHANGE("sso-direct-exchange", "direct模式的交换机"),
+	
+	SSO_TOPIC_EXCHANGE("sso_topic_exchange","Topic模式的交换机"),
+	
+	SSO_FANOUT_INIT_USER("sso_fanout_init_user","广播交换机 用户初始化消息");
 
 	private String	name;
 	private String	memo;
