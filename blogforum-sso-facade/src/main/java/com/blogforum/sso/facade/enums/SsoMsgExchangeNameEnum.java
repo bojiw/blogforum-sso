@@ -7,6 +7,10 @@ public enum SsoMsgExchangeNameEnum {
 	
 	SSO_TOPIC_EXCHANGE("sso_topic_exchange","Topic模式的交换机"),
 	
+	SSO_FANOUT_VERIFICATION_SMS("sso_fanout_verification_sms","广播交换机 验证码短信"),
+	
+	SSO_FANOUT_VERIFICATION_MAIL("sso_fanout_verification_mail","广播交换机 验证码邮箱"),
+	
 	SSO_FANOUT_INIT_USER("sso_fanout_init_user","广播交换机 用户初始化消息");
 
 	private String	name;

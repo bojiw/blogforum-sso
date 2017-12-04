@@ -27,6 +27,11 @@
 			<artifactId>blogforum-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-docking-facade</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
             <dependency>
                 <!--Import dependency management from Spring Boot-->
                 <groupId>org.springframework.boot</groupId>

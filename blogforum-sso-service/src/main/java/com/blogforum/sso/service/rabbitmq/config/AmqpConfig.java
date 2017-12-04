@@ -83,6 +83,15 @@ public class AmqpConfig {
 		return new FanoutExchange(SsoMsgExchangeNameEnum.SSO_FANOUT_INIT_USER.getName(), true, false);
 	}
 	
+	@Bean
+	public FanoutExchange smsFanoutExchange() {
+		return new FanoutExchange(SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_SMS.getName(), true, false);
+	}
+	
+	@Bean
+	public FanoutExchange mailFanoutExchange() {
+		return new FanoutExchange(SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_MAIL.getName(), true, false);
+	}
 	
 //	/**
 //	 * 声明一个队列 开启队列持久化功能
