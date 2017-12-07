@@ -95,7 +95,7 @@ dubbo:
       port: 20881
     
 rabbitmq: 
-  addresses: 10.10.10.106:5672 
+  addresses: 10.10.10.237:5672 
   username: admin
   password: 123456
   publisher-confirms: true

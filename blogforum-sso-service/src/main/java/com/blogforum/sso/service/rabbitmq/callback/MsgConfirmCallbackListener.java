@@ -1,5 +1,7 @@
 package com.blogforum.sso.service.rabbitmq.callback;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.stereotype.Component;
@@ -11,17 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MsgConfirmCallbackListener implements ConfirmCallback {
-
+	private final Logger	logger	= LoggerFactory.getLogger(this.getClass());
 	/**
 	 * 消息的回调
 	 */
 	@Override
 	public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-		System.out.println(" 回调id:" + correlationData);
+		logger.info(" 回调id:" + correlationData);
 		if (ack) {
-			System.out.println("消息成功消费");
+			logger.info("消息成功消费");
 		} else {
-			System.out.println("消息消费失败:" + cause);
+			logger.error("消息消费失败:" + cause);
 		}
 
 	}
