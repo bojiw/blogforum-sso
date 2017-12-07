@@ -39,7 +39,7 @@ public class SendMailRegister extends AbstractLoginRegister {
 							buildEmailVO(user.getEmail(), ServiceConstant.subject,
 												buildMailInfo(verificationCode)),
 							SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_MAIL);
-		logger.info(MessageFormat.format("成功发送邮件，邮箱为:{0},邮件内容为{1}", user.getEmail(), verificationCode));
+		logger.info(MessageFormat.format("成功发送邮件，邮箱为:{0},邮件内容为{1}{2}", user.getEmail(), verificationCode,ServiceConstant.subject));
 		return blogforumResult.ok();
 
 	}
