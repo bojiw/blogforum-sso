@@ -133,23 +133,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            
-            <!-- 设置编码模式 -->
-            <plugin>  
-                <groupId>org.springframework.boot</groupId>  
-                <artifactId>spring-boot-maven-plugin</artifactId>  
-                <configuration>  
-                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>  
-                </configuration>  
-                <!-- mvn spring-boot:repackage -->  
-                <executions>  
-                    <execution>  
-                        <goals>  
-                            <goal>repackage</goal>  
-                        </goals>  
-                    </execution>  
-                </executions>  
-            </plugin>  
+ 
         </plugins>
     </build>
   
