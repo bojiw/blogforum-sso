@@ -1,5 +1,6 @@
 package com.blogforum.sso.service.loginregistration;
 
+import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 
 import org.slf4j.Logger;
@@ -20,10 +21,7 @@ public class SendMailRegister extends AbstractLoginRegister {
 
 	private final Logger	logger	= LoggerFactory.getLogger(this.getClass());
 
-	/** 标准邮件发送类 */
-	@Autowired
-	private MailSend		simpleMailSend;
-
+	/**发送消息类*/
 	@Autowired
 	private SendMqMessage	sendMqMessage;
 
@@ -34,11 +32,20 @@ public class SendMailRegister extends AbstractLoginRegister {
 		checkMailValue(user, "0000");
 		//获取验证码
 		String verificationCode = getVerificationCodeAndSetExRedis(user.getEmail());
-		//发送邮件  传入接收邮件人 邮件主题  邮件内容
-		sendMqMessage.sendMsg(
-							buildEmailVO(user.getEmail(), ServiceConstant.subject,
-												buildMailInfo(verificationCode)),
-							SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_MAIL);
+		
+		//TODO
+		try {
+			String subject = new String("欢迎注册博记系统账户".getBytes(), "UTF-8");
+			//发送邮件  传入接收邮件人 邮件主题  邮件内容
+			sendMqMessage.sendMsg(
+								buildEmailVO(user.getEmail(), subject,
+													buildMailInfo(verificationCode)),
+								SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_MAIL);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		logger.info(MessageFormat.format("成功发送邮件，邮箱为:{0},邮件内容为{1}{2}", user.getEmail(), verificationCode,ServiceConstant.subject));
 		return blogforumResult.ok();
 

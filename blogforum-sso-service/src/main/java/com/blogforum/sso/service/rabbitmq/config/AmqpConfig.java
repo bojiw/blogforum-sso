@@ -127,7 +127,7 @@ public class AmqpConfig {
 		template.setConfirmCallback(msgConfirmCallbackListener);
 		template.setReturnCallback(msgReturnCallbackListener);
 		template.setMandatory(true);
-		template.setEncoding("UTF-8");
+		//template.setEncoding("UTF-8");
 		return template;
 	}
 
