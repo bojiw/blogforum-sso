@@ -133,8 +133,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            
-            
             <!-- 设置编码模式 -->
             <plugin>  
                 <groupId>org.springframework.boot</groupId>  
