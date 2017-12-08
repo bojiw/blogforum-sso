@@ -1,0 +1,7 @@
+com\blogforum\sso\facade\user\UserServerFacade.class
+com\blogforum\sso\facade\enums\SsoMsgExchangeNameEnum.class
+com\blogforum\sso\facade\model\BaseVO.class
+com\blogforum\sso\facade\model\UserVO.class
+com\blogforum\sso\facade\session\SessionServerFacade.class
+com\blogforum\sso\facade\enums\SsoMsgRouterKeyEnum.class
+com\blogforum\sso\facade\model\BaseSO.class
