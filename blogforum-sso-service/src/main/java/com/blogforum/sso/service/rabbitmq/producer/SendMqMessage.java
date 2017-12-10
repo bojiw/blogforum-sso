@@ -27,5 +27,5 @@ public interface SendMqMessage {
 	 * @author: wwd
 	 * @time: 2017年11月19日
 	 */
-	public void sendMsg(Object content, SsoMsgExchangeNameEnum exchangeName, SsoMsgRouterKeyEnum queueName);
+	public void sendMsg(Object content, SsoMsgExchangeNameEnum exchangeName, SsoMsgRouterKeyEnum routingKey);
 }
