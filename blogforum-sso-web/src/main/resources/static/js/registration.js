@@ -12,9 +12,10 @@ $(function(){
 			$("[name = 'iphone']").focus();
 			return false;
 		}
-		var isMobile=/^(?:13\d|15\d)\d{5}(\d{3}|\*{3})$/;   
-		var isPhone=/^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;
-		if(!isMobile.test(iphone) && !isPhone.test(iphone)){
+		//var isMobile=/^(?:13\d|15\d)\d{5}(\d{3}|\*{3})$/;   
+		//var isPhone=/^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;
+		var isPhone=/^1[34578]\d{9}$/;
+		if(!isPhone.test(iphone)){
 			layer.tips('手机号填写不正确!','[name = "iphone"]',{tips:[2,"#3595CC"]});
 			$("[name = 'iphone']").focus();
 			return false;

@@ -96,10 +96,10 @@ dubbo:
     protocol:
       #使用dubbo作为通信协议 端口为20880
       name: dubbo
-      port: 20881
+      port: 20882
     
 rabbitmq: 
-  addresses: 10.10.10.237:5672 
+  addresses: 10.10.10.106:5672 
   username: admin
   password: 123456
   publisher-confirms: true
