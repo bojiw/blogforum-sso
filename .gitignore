@@ -18,6 +18,7 @@ gen### Java template
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+target/
 
 # Package Files #
 *.jar
