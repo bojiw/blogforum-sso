@@ -17,7 +17,7 @@ public class MailRegister extends AbstractLoginRegister {
 		buildUserAndSessionCookie(user, context.getHttpServletResponse());
 		//保存用户
 		initeUser.createUser(user);
-		return blogforumResult.ok();
+		return blogforumResult.ok(noteServerUrl);
 	}
 	
 	@Override

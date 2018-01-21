@@ -35,7 +35,6 @@
 				layer.msg(data.msg);
 				$("[name='name']").focus();
 			} else {
-				layer.msg("登录成功,开始跳转。。。");
 				location.href=data.data;
 			}
 			

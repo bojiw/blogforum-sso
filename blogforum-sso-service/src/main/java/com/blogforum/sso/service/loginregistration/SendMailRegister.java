@@ -1,6 +1,5 @@
 package com.blogforum.sso.service.loginregistration;
 
-import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import com.blogforum.docking.facade.model.VerificationEmailVO;
 import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.constant.ServiceConstant;
-import com.blogforum.sso.service.mail.MailSend;
 import com.blogforum.sso.service.rabbitmq.producer.SendMqMessage;
 
 @Component

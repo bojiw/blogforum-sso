@@ -3,7 +3,6 @@ package com.blogforum.sso.service.loginregistration;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.blogforum.common.enums.BizErrorEnum;
@@ -17,9 +16,6 @@ import com.blogforum.sso.service.constant.ServiceConstant;
 @Component
 public class Login extends AbstractLoginRegister {
 
-	/** note笔记系统地址 */
-	@Value("${myValue.noteServerUrl}")
-	private String noteServerUrl;
 
 	@Override
 	public blogforumResult execute(LoginRegisterContext context) {

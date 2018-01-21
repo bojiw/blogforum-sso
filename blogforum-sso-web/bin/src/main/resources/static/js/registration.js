@@ -147,8 +147,7 @@ $(function(){
 				layer.msg(data.msg);
 				$("[name='name']").focus();
 			} else {
-				layer.msg("注册成功,开始跳转。。。");
-				location.href=data.data;
+				layer.msg("注册成功");
 			}
 		});
 	
@@ -187,8 +186,7 @@ $(function(){
 				layer.msg(data.msg);
 				$("[name='name']").focus();
 			} else {
-				layer.msg("注册成功,开始跳转。。。");
-				location.href=data.data;
+				layer.msg("注册成功");
 			}
 		});
 	

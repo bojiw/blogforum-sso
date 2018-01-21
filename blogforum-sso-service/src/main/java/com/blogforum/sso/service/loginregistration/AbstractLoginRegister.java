@@ -50,6 +50,10 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	@Autowired
 	protected IniteUser		initeUser;
 
+	/** note笔记系统地址 */
+	@Value("${myValue.noteServerUrl}")
+	protected String		noteServerUrl;
+
 	/**
 	 * 获取验证码并setEx值到redis
 	 * 
