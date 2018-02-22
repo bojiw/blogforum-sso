@@ -92,8 +92,8 @@ public class SessionFilter extends OncePerRequestFilter {
 			//获取cookie中的token
 			String token = CookieUtils.getCookie(httpRequest, "COOKIE_TOKEN");
 			LoggerUtil.error(logger, "--------------------------------");
-			LoggerUtil.error(logger, ssoUrl);
-			LoggerUtil.error(logger, SESSION_KEY);
+			LoggerUtil.error(logger, "url" + ssoUrl);
+			LoggerUtil.error(logger, "session" + SESSION_KEY);
 			if (sessionService == null ) {
 				LoggerUtil.error(logger, "sessionService为空");
 			}
