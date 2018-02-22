@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
@@ -30,19 +29,15 @@ import com.blogforum.sso.service.session.SessionService;
  *
  */
 @WebFilter(urlPatterns = "/*", filterName = "sessionFilter")
-@Component
 public class SessionFilter extends OncePerRequestFilter {
 
 	private final static Logger	logger	= LoggerFactory.getLogger(SessionFilter.class);
 
 	/** session开头key */
-	@Value("${myValue.session_key}")
 	protected String			SESSION_KEY;
 
-	@Value("${myValue.ssoServerUrl}")
 	protected String			ssoUrl;
 
-	@Autowired
 	private SessionService		sessionService;
 
 
@@ -111,6 +106,21 @@ public class SessionFilter extends OncePerRequestFilter {
 		//执行业务逻辑
 		filterChain.doFilter(httpRequest, httpResponse);
 		
+	}
+
+
+	public void setSESSION_KEY(String sESSION_KEY) {
+		SESSION_KEY = sESSION_KEY;
+	}
+
+
+	public void setSsoUrl(String ssoUrl) {
+		this.ssoUrl = ssoUrl;
+	}
+
+
+	public void setSessionService(SessionService sessionService) {
+		this.sessionService = sessionService;
 	}
 
 
