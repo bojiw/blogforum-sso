@@ -4,13 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.blogforum.sso.dao.redis.RedisClient;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.session.SessionService;
 
-@Component
+@Service
 public class SessionServiceImpl implements SessionService {
 	
 	/** redis客户端 */

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.blogforum.common.tools.CookieUtils;
@@ -29,6 +30,7 @@ import com.blogforum.sso.service.session.SessionService;
  *
  */
 @WebFilter(urlPatterns = "/*", filterName = "sessionFilter")
+@Component
 public class SessionFilter extends OncePerRequestFilter {
 
 	private final static Logger	logger	= LoggerFactory.getLogger(SessionFilter.class);
