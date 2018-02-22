@@ -108,7 +108,7 @@ rabbitmq:
     
 #sso服务器地址
 myValue: 
-  ssoServiceUrl: http://sso.bojiw.com
+  ssoServerUrl: http://sso.bojiw.com
   #session过期时间
   session_time: 1800
   #注册时保存到redis的值

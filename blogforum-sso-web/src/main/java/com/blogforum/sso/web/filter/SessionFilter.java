@@ -23,7 +23,7 @@ import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.session.SessionService;
 
 /**
- * 登录过滤器
+ * 访问过滤器
  * 
  * @author wwd
  *
