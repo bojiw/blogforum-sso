@@ -14,4 +14,5 @@ public class MyIndexAdapter extends WebMvcConfigurerAdapter {
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
 	}
+	
 }

@@ -16,7 +16,7 @@ import com.blogforum.sso.pojo.entity.DataEntity;
  * @param <T>
  * @param <ID>
  */
-public abstract class CrudService<T extends DataEntity<T>> extends BaseService {
+public abstract class CrudService<T extends DataEntity<T>> implements BaseService<T> {
 
 	@Autowired
 	protected CrudMapper<T> mapper;
@@ -27,8 +27,8 @@ public abstract class CrudService<T extends DataEntity<T>> extends BaseService {
 	 * @param id
 	 * @return
 	 */
-	public T getById(String id) {
-		return mapper.getById(id);
+	public T getById(T t) {
+		return mapper.getById(t);
 	}
 
 	/**
@@ -86,8 +86,9 @@ public abstract class CrudService<T extends DataEntity<T>> extends BaseService {
 	 * 
 	 * @param id
 	 */
-	public void delete(String id) {
-		mapper.delete(id);
+	public void delete(T t) {
+		t.setUpdateDate(new Date());
+		mapper.delete(t);
 	}
 
 	/**

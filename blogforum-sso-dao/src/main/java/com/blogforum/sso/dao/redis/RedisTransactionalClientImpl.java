@@ -152,4 +152,18 @@ public class RedisTransactionalClientImpl implements RedisClient {
 		return Result;
 	}
 
+	@Override
+	public void del(final String key) {
+		redisTemplateTransactional.execute(new RedisCallback<Long>() {
+
+			@Override
+			public Long doInRedis(RedisConnection connection) throws DataAccessException {
+				Long del = connection.del(redisTemplateTransactional.getStringSerializer().serialize(key));
+				return del;
+			}
+			
+		});
+		
+	}
+
 }

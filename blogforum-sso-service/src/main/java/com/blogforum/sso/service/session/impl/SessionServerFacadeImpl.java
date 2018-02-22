@@ -1,22 +1,26 @@
-package com.blogforum.sso.service.session;
+package com.blogforum.sso.service.session.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.alibaba.fastjson.JSON;
 import com.blogforum.common.model.Result;
 import com.blogforum.common.tools.BaseConverter;
+import com.blogforum.common.tools.ObjectUtils;
 import com.blogforum.sso.dao.redis.RedisClient;
 import com.blogforum.sso.facade.model.UserVO;
 import com.blogforum.sso.facade.session.SessionServerFacade;
 import com.blogforum.sso.pojo.entity.User;
+import com.blogforum.sso.service.session.SessionService;
 
 public class SessionServerFacadeImpl implements SessionServerFacade {
 
 	/** redis客户端 */
 	@Autowired
 	protected RedisClient redisClient;
+	
+	@Autowired
+	private SessionService sessionService;
 
 	/** session开头key */
 	@Value("${myValue.session_key}")
@@ -25,6 +29,7 @@ public class SessionServerFacadeImpl implements SessionServerFacade {
 	/** session过期时间 */
 	@Value("${myValue.session_time}")
 	protected int			SESSION_TIME;
+	
 	
 	
 	@Override
@@ -53,17 +58,24 @@ public class SessionServerFacadeImpl implements SessionServerFacade {
 	 * @time: 2017年11月6日
 	 */
 	private UserVO getUserVOByToken(String token){
+		
 		//获取redis中保存的session信息
-		StringBuffer session = new StringBuffer(SESSION_KEY).append(":").append(token);
-		String userString = redisClient.get(session.toString());
-		if (StringUtils.isEmpty(userString)) {
+		User user = sessionService.getSessionUser(token);
+		if (ObjectUtils.isObjAllNull(user)) {
 			return null;
 		}
-		User user = JSON.parseObject(userString,User.class);
 		BaseConverter<User, UserVO> userConverter = new BaseConverter<>();
 		UserVO userVO = userConverter.convert(user, UserVO.class);
-		redisClient.expire(session.toString(), SESSION_TIME);
 		return userVO;
+	}
+
+	@Override
+	public Result<Boolean> loginOut(String token) {
+		//拼接session的key
+		StringBuffer session = new StringBuffer(SESSION_KEY).append(":").append(token);
+		//删除session
+		redisClient.del(session.toString());
+		return new Result<Boolean>(true, true);
 	}
 
 }

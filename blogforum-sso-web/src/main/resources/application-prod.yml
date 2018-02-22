@@ -119,6 +119,8 @@ myValue:
   session_key: SESSION
   #sso顶级域名地址
   domain: bojiw.com
+  #默认用户头像路径
+  defaulUserImageUrl: http://ouqhxmwfh.bkt.clouddn.com/20182/201827211710jek79lblo0wzh0k9
 
 
 

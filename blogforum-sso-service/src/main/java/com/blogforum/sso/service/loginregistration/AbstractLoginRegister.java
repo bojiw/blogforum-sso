@@ -20,7 +20,7 @@ import com.blogforum.sso.dao.mapper.UserMapper;
 import com.blogforum.sso.dao.redis.RedisClient;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.constant.ServiceConstant;
-import com.blogforum.sso.service.user.IniteUser;
+import com.blogforum.sso.service.dao.UserService;
 
 public abstract class AbstractLoginRegister implements LoginRegister {
 
@@ -48,12 +48,15 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	protected String		DOMAIN;
 
 	@Autowired
-	protected IniteUser		initeUser;
+	protected UserService		userService;
 
 	/** note笔记系统地址 */
 	@Value("${myValue.noteServerUrl}")
 	protected String		noteServerUrl;
-
+	
+	/**用户默认头像路径*/
+	@Value("${myValue.defaulUserImageUrl}")
+	private String			defaulUserImageUrl;
 	/**
 	 * 获取验证码并setEx值到redis
 	 * 
@@ -140,6 +143,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		user.setPassword(encodePWD);
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
+		user.setImage(defaulUserImageUrl);
 		SessionCookie(user, httpServletResponse);
 	}
 

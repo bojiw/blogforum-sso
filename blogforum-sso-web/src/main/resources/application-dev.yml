@@ -16,9 +16,9 @@ spring:
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://119.23.247.225:3306/blogforum_user?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        url: jdbc:mysql://10.10.10.106:3306/blogforum_user?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password: mxm2XVZ32/H9YRkRzGLZ+EuwnpxbcFItcHcSY0ybQQqJdguXayUsKzLsZd5WiLyMwvGDkqhJILcgQjDzc8GSyw==
+        password: Biyu5YzU+6sxDRbmWEa3B2uUcImzDo0BuXjTlL505+/pTb+/0Oqd3ou1R6J8+9Fy3CYrM18nBDqf6wAaPgUGOg==
         
         
         # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -119,7 +119,8 @@ myValue:
   session_key: SESSION
   #sso顶级域名地址
   domain: 127.0.0.1
-
+  #默认用户头像路径
+  defaulUserImageUrl: http://ouqhxmwfh.bkt.clouddn.com/20182/201827211710jek79lblo0wzh0k9
 
 
 

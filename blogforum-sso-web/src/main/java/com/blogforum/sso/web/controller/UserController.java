@@ -18,7 +18,7 @@ import com.blogforum.sso.service.loginregistration.LoginRegisterFactory;
 public class UserController {
 
 	@Autowired
-	private LoginRegisterFactory loginRegisterFactory;
+	private LoginRegisterFactory	loginRegisterFactory;
 
 	@PostMapping("/loginregister")
 	public blogforumResult loginregister(String cmCode, User user, String verificationCode,
@@ -31,5 +31,8 @@ public class UserController {
 		context.setHttpServletResponse(httpServletResponse);
 		return loginRegisterFactory.getManager(cmCode).execute(context);
 	}
+	
+	
+
 
 }

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	    <!-- Bootstrap core CSS -->
+	    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	    <!-- 图片上传裁剪插件 -->
+	    <link href="https://cdn.bootcss.com/cropper/3.1.4/cropper.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/sitelogo.css" rel="stylesheet">
+		
+		<!-- Simplify -->
+		<link href="css/setting.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+        <div class="col-sm-6">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">个人设置</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+							<div class="ibox-content">
+		                        <div class="form-horizontal" style="float:left;width:60%" autocomplete="off">
+		                            <div class="form-group">
+		                                <label class="col-sm-3 control-label">用户名：</label>
+		
+		                                <div class="col-sm-8">
+		                                    <input type="text" id="username"  placeholder="用户名" class="form-control"> 
+		                                </div>
+		                            </div>
+		                            <hr style="margin-right:5%"/>
+		                            <div class="form-group">
+		                                <label class="col-sm-3 control-label">邮箱：</label>
+		
+		                                <div class="col-sm-8">
+		                                    <input type="text" id="email"  placeholder="邮箱" class="form-control"> 
+		                                </div>
+		                            </div>
+		                            <hr style="margin-right:5%"/>
+		                            <div class="form-group">
+		                                <label class="col-sm-3 control-label">手机号：</label>
+		
+		                                <div class="col-sm-8">
+		                                    <input type="text" id="iphone"  placeholder="手机号" class="form-control"> 
+		                                </div>
+		                            </div>
+		                            <hr style="margin-right:5%"/>
+		                            <div class="form-group">
+		                                <label class="col-sm-3 control-label">所在省份：</label>
+										
+										<div class="col-sm-2" >
+											<select class='m-wrap' id="provinceLocation" >
+											  <option selected>--请选择--</option>
+											</select>
+										</div>
+		                                <label class="col-sm-2 control-label">所在城市：</label>
+										
+										<div class="col-sm-3">
+											<select class='m-wrap' id="cityLocation">
+												<option selected>--请选择--</option>
+											</select>
+										</div>
+		                            </div>
+		                            <hr style="margin-right:5%"/>
+		                            <div class="form-group">
+		                                <label class="col-sm-3 control-label">出生省份：</label>
+										
+										<div class="col-sm-2" >
+											<select class='m-wrap' id="birthProvince">
+											  <option selected>--请选择--</option>
+											</select>
+										</div>
+		                                <label class="col-sm-2 control-label">出生城市：</label>
+										
+										<div class="col-sm-3">
+											<select class='m-wrap' id="birthCity">
+												<option selected>--请选择--</option>
+											</select>
+										</div>
+		                            </div>
+		                            <hr style="margin-right:5%"/>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">个性签名：</label>
+										<div class="col-sm-8">
+											<textarea id="remarks" class="form-control" rows="3"></textarea>
+										</div><!-- /.col -->
+									</div>
+		                            
+		                            <div class="form-group">
+		                                <div class="col-sm-offset-3 col-sm-8" style="margin-left:70%">
+		                                    <button class="btn btn-sm btn-info" id="settingBaseInfo" >修改信息</button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <div style="width:40%;height:400px;float:right;">
+		                        	<div id="imagediv" class="imagediv"  >
+		                        		<img class='portraitimage' src="">
+		                        	</div>
+		                        	<div>
+		                        		<button class="btn btn-info"  data-toggle="modal" data-target="#avatar-modal" style="margin:30px 140px;">选择头像</button>
+		                        	</div>
+		                        	
+		                        	<!-- 图片上传部分 -->
+		                        	<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+										<div class="modal-dialog modal-lg" style="width:1150px">
+											<div class="modal-content">
+												<!--<form class="avatar-form" action="upload-logo.php" enctype="multipart/form-data" method="post">-->
+												<form class="avatar-form">
+													<div class="modal-header">
+														<button class="close" data-dismiss="modal" type="button">&times;</button>
+														<h4 class="modal-title" id="avatar-modal-label">上传图片</h4>
+													</div>
+													<div class="modal-body">
+														<div class="avatar-body">
+															<div class="avatar-upload">
+																<input class="avatar-src" name="avatar_src" type="hidden">
+																<input class="avatar-data" name="avatar_data" type="hidden">
+																<label for="avatarInput" style="line-height: 35px;">图片上传</label>
+																<button class="btn btn-danger"  type="button" style="height: 35px;" onClick="$('input[id=avatarInput]').click();">请选择图片</button>
+																<span id="avatar-name"></span>
+																<input class="avatar-input hide" id="avatarInput" name="avatar_file" type="file"></div>
+															<div class="row">
+																<div class="col-md-9">
+																	<div class="avatar-wrapper"></div>
+																</div>
+																<div class="col-md-3">
+																	<div class="avatar-preview preview-lg" style="width:260px;height:300px" id="imageHead"></div>
+																</div>
+															</div>
+															<div class="row avatar-btns">
+																<div class="col-md-4">
+																	<div class="btn-group">
+																		<button class="btn btn-danger fa fa-undo" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"> 向左旋转</button>
+																	</div>
+																	<div class="btn-group">
+																		<button class="btn  btn-danger fa fa-repeat" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"> 向右旋转</button>
+																	</div>
+																</div>
+																<div class="col-md-5" style="text-align: right;">								
+																	<button class="btn btn-danger fa fa-arrows" data-method="setDragMode" data-option="move" type="button" title="移动">
+																	<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+																	</span>
+																  </button>
+																  <button type="button" class="btn btn-danger fa fa-search-plus" data-method="zoom" data-option="0.1" title="放大图片">
+																	<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, 0.1)">
+																	  <!--<span class="fa fa-search-plus"></span>-->
+																	</span>
+																  </button>
+																  <button type="button" class="btn btn-danger fa fa-search-minus" data-method="zoom" data-option="-0.1" title="缩小图片">
+																	<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, -0.1)">
+																	  <!--<span class="fa fa-search-minus"></span>-->
+																	</span>
+																  </button>
+																  <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset" title="重置图片">
+																		<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;reset&quot;)" aria-describedby="tooltip866214">
+																   </button>
+																</div>
+																<div class="col-md-3">
+																	<button class="btn btn-danger btn-block avatar-save fa fa-save" type="button" data-dismiss="modal"> 确定图片</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+		                        	<!-- 图片上传结束 -->
+		                        </div>
+		                    </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <strong>移动设备优先</strong>
+                            <p>在 Bootstrap 2 中，我们对框架中的某些关键部分增加了对移动设备友好的样式。而在 Bootstrap 3 中，我们重写了整个框架，使其一开始就是对移动设备友好的。这次不是简单的增加一些可选的针对移动设备的样式，而是直接融合进了框架的内核中。也就是说，Bootstrap 是移动设备优先的。针对移动设备的样式融合进了框架的每个角落，而不是增加一个额外的文件。</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- Slimscroll -->
+	<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+	
+	<!-- Popup Overlay -->
+	<script src='js/jquery.popupoverlay.min.js'></script>
+	
+	<!-- Modernizr -->
+	<script src='js/modernizr.min.js'></script>
+	
+	<!-- Simplify -->
+	<script src="js/simplify.js"></script>
+	
+	<!-- 图片裁剪上传 -->
+	<script src="https://cdn.bootcss.com/cropper/3.1.4/cropper.min.js"></script>
+    <script src="js/sitelogo.js"></script>
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+   	<!-- layer -->
+   	<script src="http://cdn.staticfile.org/layer/2.3/layer.js"></script>
+   	<script src="js/setting.js"></script>
+</body>
+</html>

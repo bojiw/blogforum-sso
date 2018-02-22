@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.RedisSystemException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -141,6 +140,19 @@ public class RedisClientImpl implements RedisClient {
 			}
 		});
 		return Result;
+	}
+
+	@Override
+	public void del(final String key) {
+		redisTemplate.execute(new RedisCallback<Long>() {
+
+			@Override
+			public Long doInRedis(RedisConnection connection) throws DataAccessException {
+				Long del = connection.del(redisTemplate.getStringSerializer().serialize(key));
+				return del;
+			}
+			
+		});
 	}
 
 }

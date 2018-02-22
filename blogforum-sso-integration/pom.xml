@@ -6,4 +6,16 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>blogforum-sso-integration</artifactId>
+  
+  
+  	<dependencies>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-docking-facade</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.blogforum</groupId>
+			<artifactId>blogforum-common</artifactId>
+		</dependency>
+  	</dependencies>
 </project>

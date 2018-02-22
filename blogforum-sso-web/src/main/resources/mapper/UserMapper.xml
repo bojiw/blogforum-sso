@@ -12,6 +12,7 @@
 			salt,
 			role,
 			email,
+			image,
 			iphone,
 			create_date,
 			status
@@ -24,6 +25,7 @@
 			#{role},
 			#{email},
 			#{iphone},
+			#{image},
 			#{createDate},
 			#{status}
 		)
@@ -56,6 +58,42 @@
 	    email = #{email} or iphone = #{iphone}
 	</select>
 	
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.blogforum.sso.pojo.entity.User">
+	    select
+	    <include refid="user"/>
+	    from user u
+	    where
+	    	id = #{id}
+	</select>
+	
+	
+	<update id="delete" parameterType="com.blogforum.sso.pojo.entity.User">
+	    update user
+	    set status = '1' and update_date=#{updateDate}
+	    where
+	    	id = #{id}
+	    
+	</update>
+	
+	
+	<!-- 更新基本信息 -->
+	<update id="updateBaseInfo" parameterType="com.blogforum.sso.pojo.entity.User">
+	    update user 
+	    set email=#{email},iphone=#{iphone},username=#{username},image=#{image},remarks=#{remarks},
+	    	province_location=#{provinceLocation},city_location=#{cityLocation},birth_province=#{birthProvince},
+	    	birth_city=#{birthCity},update_date=#{updateDate}
+	    where
+	    	id = #{id}
+	    
+	</update>
+	<!-- 更新密码 -->
+	<update id="updatePwd" parameterType="com.blogforum.sso.pojo.entity.User">
+	    update user
+	    set password=#{password},salt=#{salt},update_date=#{updateDate}
+	    where
+	    	id = #{id}
+	</update>
 	
 	<sql id="user">
 	    u.id,

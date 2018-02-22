@@ -56,5 +56,6 @@ public class Login extends AbstractLoginRegister {
 		//用户存在则保存到session和cookie中
 		SessionCookie(newUser, httpServletResponse);
 	}
+	
 
 }

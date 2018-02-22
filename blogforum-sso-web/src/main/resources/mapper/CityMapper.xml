@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blogforum.sso.dao.mapper.CityMapper">
+
+
+    <sql id="city">
+	    c.id,
+	    c.code,
+	    c.name,
+	    c.parent_id parentId,
+	    c.first_letter firstLetter,
+	    c.level
+	</sql>
+	
+    <resultMap type="com.blogforum.sso.pojo.entity.City" id="citylist">
+        <result property="id" column="id" />
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parentId"/>
+        <result property="firstLetter" column="firstLetter"/>
+        <result property="level" column="level"/>
+    </resultMap>
+    
+    <select id="queryProvinceAll" resultMap="citylist">
+        select 
+        	<include refid="city"/>
+        from 
+        	city c
+        where 
+        	level = '0'
+    </select>
+    
+    <select id="queryByParentId" resultMap="citylist">
+        select 
+        	<include refid="city"/>
+        from 
+        	city c
+        where 
+        	c.parent_id = #{parentId}
+    </select>
+    
+    
+    <select id="getByNames" resultMap="citylist">
+        select 
+        	<include refid="city"/>
+        from 
+        	city c
+        where 
+        	c.name in 
+                <foreach collection="array" item="name" index="index"  
+                         open="(" close=")" separator=",">  
+                    #{name}  
+                </foreach>  
+        
+    </select>
+    
+    
+    
+</mapper>

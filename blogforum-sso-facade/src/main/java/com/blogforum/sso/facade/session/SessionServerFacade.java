@@ -23,6 +23,14 @@ public interface SessionServerFacade {
 	 */
 	public Result<UserVO> getUserByToken(String token);
 	
+	/**
+	 * 退出登录
+	 * @param token
+	 * @author: wwd
+	 * @time: 2018年2月7日
+	 */
+	public Result<Boolean> loginOut(String token);
+	
 	
 
 }
