@@ -55,7 +55,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 			User user = sessionService.getSessionUser(token);
 			//如果用户未登录 跳转到登录页面
 			if (null == user) {
-				loginAgain(request, response);
+				response.sendRedirect("/");
 				return false;
 			}
 			request.setAttribute("user", user);

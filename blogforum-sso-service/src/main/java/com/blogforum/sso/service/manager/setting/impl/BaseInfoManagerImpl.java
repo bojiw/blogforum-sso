@@ -113,7 +113,8 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	private void checkCity(String province ,String city){
 		if (StringUtils.isNotEmpty(province)) {
 			List<City> citys = cityService.getByNames(province, city);
-			if (citys.size() != 2) {
+			//因为数据库中存在相同名 比如北京市有两个 所以只要大于等于2条数据就可以
+			if (citys.size() < 2) {
 				LoggerUtil.error(logger, "数据库查询出来的数据,citys:{0},前端传入数据,names:{1}", JSON.toJSONString(citys),
 									province, city);
 				throw new SSOBusinessException("传入城市信息错误");
