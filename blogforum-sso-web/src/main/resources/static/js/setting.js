@@ -17,12 +17,13 @@
 				$("#provinceLocation").append("<option value=" + item.name + " cityId=" + item.id + ">" + item.name + "</option>");
 				$("#birthProvince").append("<option value=" + item.name + " cityId=" + item.id + ">" + item.name + "</option>");
 			});
-			if(baseInfo.provinceLocation != ""){
+			//如果不为空
+			if(baseInfo.provinceLocation){
 				$("#provinceLocation").val(baseInfo.provinceLocation);
 				$("#cityLocation").empty();
 				$("#cityLocation").append("<option value=" + baseInfo.cityLocation + ">" + baseInfo.cityLocation + "</option>");
 			}
-			if(baseInfo.birthProvince != ""){
+			if(baseInfo.birthProvince){
 				$("#birthProvince").val(baseInfo.birthProvince);
 				$("#birthCity").empty();
 				$("#birthCity").append("<option value=" + baseInfo.birthCity + ">" + baseInfo.birthCity + "</option>");
