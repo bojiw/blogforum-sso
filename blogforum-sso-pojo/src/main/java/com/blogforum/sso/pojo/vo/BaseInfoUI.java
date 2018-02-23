@@ -13,9 +13,19 @@ public class BaseInfoUI extends User {
 	private static final long	serialVersionUID	= 1181096429459888190L;
 
 	/**
-	 * 城市信息
+	 * 省列表
 	 */
 	private List<City>			citys;
+
+	/**
+	 * 所在城市列表
+	 */
+	private List<City>			cityLocations;
+
+	/**
+	 * 出生城市列表
+	 */
+	private List<City>			birthCitys;
 
 	/**
 	 * token
@@ -52,6 +62,22 @@ public class BaseInfoUI extends User {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public List<City> getCityLocations() {
+		return cityLocations;
+	}
+
+	public void setCityLocations(List<City> cityLocations) {
+		this.cityLocations = cityLocations;
+	}
+
+	public List<City> getBirthCitys() {
+		return birthCitys;
+	}
+
+	public void setBirthCitys(List<City> birthCitys) {
+		this.birthCitys = birthCitys;
 	}
 
 }

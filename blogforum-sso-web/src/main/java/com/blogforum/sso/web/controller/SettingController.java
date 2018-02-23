@@ -30,7 +30,7 @@ public class SettingController {
 	
 	@GetMapping("/getCitys")
 	public blogforumResult getCitys(HttpServletRequest request,String cityParentId) {
-		blogforumResult citys = baseInfoManager.getCitys(cityParentId);
+		blogforumResult citys = baseInfoManager.getCitys(Integer.valueOf(cityParentId));
 		return citys;
 	}
 	

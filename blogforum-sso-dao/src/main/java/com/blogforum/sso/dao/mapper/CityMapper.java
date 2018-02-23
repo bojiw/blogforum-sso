@@ -21,7 +21,7 @@ public interface CityMapper extends CrudMapper<City> {
 	 * @author: wwd
 	 * @time: 2018年2月19日
 	 */
-	List<City> queryByParentId(String parentId);
+	List<City> queryByParentId(Integer parentId);
 	
 	
 	/**

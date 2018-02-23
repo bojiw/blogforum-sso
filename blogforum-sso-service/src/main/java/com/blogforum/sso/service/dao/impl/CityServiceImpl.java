@@ -24,7 +24,7 @@ public class CityServiceImpl extends CrudService<City> implements CityService  {
 	}
 
 	@Override
-	public List<City> queryByParentId(String parentId) {
+	public List<City> queryByParentId(Integer parentId) {
 		List<City> citys = cityMapper.queryByParentId(parentId);
 		return citys;
 	}

@@ -22,7 +22,7 @@ public interface CityService extends BaseService<City> {
 	 * @author: wwd
 	 * @time: 2018年2月19日
 	 */
-	List<City> queryByParentId(String parentId);
+	List<City> queryByParentId(Integer parentId);
 	
 	/**
 	 * 根据数组名称查询

@@ -4,6 +4,11 @@
 //loading -------------------------------
 	//请求用户基本信息 赋值到个人设置中
 	$.get("/setting/getBaseInfo",function(data){
+		//如果没有传过来状态 代表未登录直接跳转登录页面
+		if(!data.status){
+			window.location.href=data;
+			return;
+		}
 		if(data.status != "200") {
 			layer.msg(data.msg);
 		} else {
@@ -21,13 +26,18 @@
 			if(baseInfo.provinceLocation){
 				$("#provinceLocation").val(baseInfo.provinceLocation);
 				$("#cityLocation").empty();
-				$("#cityLocation").append("<option value=" + baseInfo.cityLocation + ">" + baseInfo.cityLocation + "</option>");
+				jQuery.each(baseInfo.cityLocations,function(i,item){
+					$("#cityLocation").append("<option value=" + item.name + " cityId=" + item.id + ">" + item.name + "</option>");
+				});
+				$("#cityLocation").val(baseInfo.cityLocation);
 			}
 			if(baseInfo.birthProvince){
 				$("#birthProvince").val(baseInfo.birthProvince);
 				$("#birthCity").empty();
-				$("#birthCity").append("<option value=" + baseInfo.birthCity + ">" + baseInfo.birthCity + "</option>");
-			
+				jQuery.each(baseInfo.birthCitys,function(i,item){
+					$("#birthCity").append("<option value=" + item.name + " cityId=" + item.id + ">" + item.name + "</option>");
+				});
+				$("#birthCity").val(baseInfo.birthCity);
 			}
 		}
 	});

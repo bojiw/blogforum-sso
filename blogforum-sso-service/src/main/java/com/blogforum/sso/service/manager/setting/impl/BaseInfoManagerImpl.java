@@ -21,6 +21,7 @@ import com.blogforum.sso.pojo.vo.BaseInfoUI;
 import com.blogforum.sso.service.dao.CityService;
 import com.blogforum.sso.service.dao.UserService;
 import com.blogforum.sso.service.manager.setting.BaseInfoManager;
+import com.google.common.collect.Lists;
 
 @Component
 public class BaseInfoManagerImpl implements BaseInfoManager {
@@ -51,9 +52,35 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		List<City> provinceAll = cityService.queryProvinceAll();
 		BaseInfoUI infoUI = new BaseInfoUI(user);
 		infoUI.setCitys(provinceAll);
-
+		//如果所在省不为空 则把对应的城市返回给前端
+		List<City> cityLocations = buildCitys(user.getProvinceLocation(), infoUI);
+		infoUI.setCityLocations(cityLocations);
+		//如果出生省不为空 则把对应的城市返回给前端
+		List<City> birthCitys = buildCitys(user.getBirthProvince(), infoUI);
+		infoUI.setBirthCitys(birthCitys);
 		return blogforumResult.ok(infoUI);
 	}
+	
+	
+	/**
+	 * 通过省名获取对应的城市列表
+	 * @param province
+	 * @param infoUI
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年2月24日
+	 */
+	private List<City> buildCitys(String province,BaseInfoUI infoUI){
+		List<City> cityLocations = Lists.newArrayList();
+		if (StringUtils.isNotBlank(province)) {
+			List<City> provinces = cityService.getByNames(province);
+			//因为省排在第一个 所以获取第一个
+			cityLocations = cityService.queryByParentId(provinces.get(0).getId());
+		}
+		return cityLocations;
+	}
+	
+	
 
 	@Override
 	public blogforumResult updateBaseInfo(BaseInfoUI baseInfoUI) {
@@ -145,7 +172,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	}
 
 	@Override
-	public blogforumResult getCitys(String cityParentId) {
+	public blogforumResult getCitys(Integer cityParentId) {
 		List<City> citys = cityService.queryByParentId(cityParentId);
 		return blogforumResult.ok(citys);
 	}

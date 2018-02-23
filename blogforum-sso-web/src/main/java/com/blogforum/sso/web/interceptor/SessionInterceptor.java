@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
+import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.enums.SessionExceptionUrlEnum;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.session.SessionService;
@@ -55,7 +57,16 @@ public class SessionInterceptor implements HandlerInterceptor {
 			User user = sessionService.getSessionUser(token);
 			//如果用户未登录 跳转到登录页面
 			if (null == user) {
-				response.sendRedirect("/");
+				response.setCharacterEncoding("UTF-8");
+				PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.print(ssoUrl);
+				} catch (IOException e) {
+					LoggerUtil.error(logger, e, "跳转登录页面异常");
+				}
+				
+				//loginAgain(request, response);
 				return false;
 			}
 			request.setAttribute("user", user);

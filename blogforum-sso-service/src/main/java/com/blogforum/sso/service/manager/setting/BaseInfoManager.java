@@ -29,6 +29,6 @@ public interface BaseInfoManager {
 	 * @author: wwd
 	 * @time: 2018年2月19日
 	 */
-	blogforumResult getCitys(String cityParentId);
+	blogforumResult getCitys(Integer cityParentId);
 	
 }
