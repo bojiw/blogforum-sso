@@ -30,7 +30,7 @@ public class CityServiceImpl extends CrudService<City> implements CityService  {
 	}
 
 	@Override
-	public List<City> getByNames(String[] names) {
+	public List<City> getByNames(String... names) {
 		return cityMapper.getByNames(names);
 	}
 

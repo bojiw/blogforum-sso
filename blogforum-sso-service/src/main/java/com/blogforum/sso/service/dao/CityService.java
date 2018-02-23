@@ -31,5 +31,5 @@ public interface CityService extends BaseService<City> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	List<City> getByNames(String[] names);
+	List<City> getByNames(String... names);
 }
