@@ -94,31 +94,34 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		if (StringUtils.isBlank(baseInfoUI.getUsername())) {
 			throw new SSOBusinessException("用户名不能为空");
 		}
+		//对前端传的所在地省市进行效验
+		checkCity(baseInfoUI.getProvinceLocation(), baseInfoUI.getCityLocation());
+		//对前端传的出生省市进行效验
+		checkCity(baseInfoUI.getBirthProvince(), baseInfoUI.getBirthCity());
 
-		String provinceLocation = baseInfoUI.getProvinceLocation();
-		String birthCity = baseInfoUI.getBirthCity();
-		String birthProvince = baseInfoUI.getBirthProvince();
-		String cityLocation = baseInfoUI.getCityLocation();
 
-		if (StringUtils.isNotEmpty(provinceLocation)) {
-			List<City> citys = cityService.getByNames(provinceLocation, birthCity);
-			if (citys.size() != 2) {
-				LoggerUtil.error(logger, "数据库查询出来所在地的数据,citys:{0},前端传入数据,names:{1},{2}", JSON.toJSONString(citys),
-									provinceLocation, birthCity);
-				throw new SSOBusinessException("传入城市信息错误");
-			}
-		}
-
-		if (StringUtils.isNotEmpty(birthProvince)) {
-			List<City> citys = cityService.getByNames(birthProvince, cityLocation);
-			if (citys.size() != 2) {
-				LoggerUtil.error(logger, "数据库查询出来的出生地数据,citys:{0},前端传入数据,names:{1}", JSON.toJSONString(citys),
-									birthProvince, cityLocation);
-				throw new SSOBusinessException("传入城市信息错误");
-			}
-		}
 
 	}
+	
+	/**
+	 * 验证省市是否正确
+	 * @param province
+	 * @param city
+	 * @author: wwd
+	 * @time: 2018年2月23日
+	 */
+	private void checkCity(String province ,String city){
+		if (StringUtils.isNotEmpty(province)) {
+			List<City> citys = cityService.getByNames(province, city);
+			if (citys.size() != 2) {
+				LoggerUtil.error(logger, "数据库查询出来的数据,citys:{0},前端传入数据,names:{1}", JSON.toJSONString(citys),
+									province, city);
+				throw new SSOBusinessException("传入城市信息错误");
+			}
+		}
+	}
+	
+	
 
 	/**
 	 * 填充新的基本信息
