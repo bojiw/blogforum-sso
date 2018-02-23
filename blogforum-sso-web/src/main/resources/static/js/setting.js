@@ -35,145 +35,58 @@
 	
 	//图片裁剪部分代码
 	
-	//做个下简易的验证  大小 格式 
-	$('#avatarInput').on('change', function(e) {
-		var filemaxsize = 1024 * 5;//5M
-		var target = $(e.target);
-		var Size = target[0].files[0].size / 1024;
-		if(Size > filemaxsize) {
-			alert('图片过大，请重新选择!');
-			$(".avatar-wrapper").childre().remove;
-			return false;
-		}
-		if(!this.files[0].type.match(/image.*/)) {
-			alert('请选择正确的图片!')
-		} else {
-			var filename = document.querySelector("#avatar-name");
-			var texts = document.querySelector("#avatarInput").value;
-			var teststr = texts; 
-			testend = teststr.match(/[^\\]+\.[^\(]+/i); //直接完整文件名的
-			filename.innerHTML = testend;
-		}
+    // 初始化图片上传插件
+    var $image = $('#image');
+    //图片文件名
+    var imageName;
+    $image.cropper({
+        aspectRatio: '1',
+        autoCropArea:0.8,
+        preview: '.up-pre-after',
+        
+    });
 	
-	});
+    
+    // 本地上传到网页图片
+    var $inputImage = $('#inputImage');
+    var URL = window.URL || window.webkitURL;
+    var blobURL;
 
-	$(".avatar-save").on("click", function() {
-		var img_lg = document.getElementById('imageHead');
-		
-		//把img放到画布中使用html2canvas会导致位置偏移和模糊 下面代码canvas: canvas2,配置这个就会出问题 目前还没找到对应办法
-//	    var width = img_lg.offsetWidth; //获取dom 宽度
-//	    var height = img_lg.offsetHeight; //获取dom 高度
-//	    var canvas2 = document.createElement("canvas");
-		// 获取元素相对于视窗的偏移量
-		//var rect = $(img_lg).get(0).getBoundingClientRect(); 
-	    //canvas2.width = width * 2;
-	    //canvas2.height = height * 2;
-	    //canvas2.style.width = width + "px";
-	    //canvas2.style.height = height + "px";
-	    //var context = canvas2.getContext("2d");
-	    //然后将画布缩放，将图像放大两倍画到画布上
-	    //context.scale(2,2);
-	    // 设置context位置, 值为相对于视窗的偏移量的负值, 实现图片复位
-	    //context.translate(-rect.left,-rect.top);
-//	    html2canvas(img_lg, {
-//            allowTaint: true,
-//            taintTest: false,
-//	        canvas: canvas2,
-//	        onrendered: function(canvas) {
-//				canvas.id = "mycanvas";
-//				//生成base64图片数据
-//				//var dataUrl = canvas.toDataURL("image/jpeg");
-//				//var formData = new FormData();
-//				//var file = convertBase64UrlToBlob(dataUrl);
-//				//formData.append('file', file);
-//				//formData.append('key', currentTime() + $("#avatar-name").html());
-//				//updateqiniu(formData,loading);
-//				//上传图片时显示过度图标
-//	            var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
-//
-//	            //canvas转换成二进制blob 上传到七牛云
-//                canvas.toBlob(function(blob) {
-//                    //创建forme
-//                    var formData = new FormData();
-//    			    formData.append('file', blob);
-//    			    formData.append('key', currentTime() + $("#avatar-name").html());
-//    			    updateqiniu(formData,loading);
-//                });
-//	        }
-//	    });
-		
-		// 截图小的显示框内的内容
-		html2canvas(img_lg, {
-			allowTaint: true,
-			taintTest: false,
-			onrendered: function(canvas) {
-				canvas.id = "mycanvas";
-				//生成base64图片数据
-				//var dataUrl = canvas.toDataURL("image/jpeg");
-				//var formData = new FormData();
-				//var file = convertBase64UrlToBlob(dataUrl);
-				//formData.append('file', file);
-				//formData.append('key', currentTime() + $("#avatar-name").html());
-				//updateqiniu(formData,loading);
-				//上传图片时显示过度图标
-	            var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
+    if (URL) {
+        $inputImage.change(function () {
+            var files = this.files;
+            var file;
 
-	            //canvas转换成二进制blob 上传到七牛云
-                canvas.toBlob(function(blob) {
-                    //创建forme
-                    var formData = new FormData();
-    			    formData.append('file', blob);
-    			    formData.append('key', currentTime() + $("#avatar-name").html());
-    			    updateqiniu(formData,loading);
-                });
-	            
-			}
-		});
-	})
-	
-	/**  
-	 * 将以base64的图片url数据转换为Blob  
-	 * @param urlData  
-	 *            用url方式表示的base64图片数据  
-	 */  
-	function convertBase64UrlToBlob(urlData){  
-	      
-	    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte  
-	      
-	    //处理异常,将ascii码小于0的转换为大于0  
-	    var ab = new ArrayBuffer(bytes.length);  
-	    var ia = new Uint8Array(ab);  
-	    for (var i = 0; i < bytes.length; i++) {  
-	        ia[i] = bytes.charCodeAt(i);  
-	    }  
-	  
-	    return new Blob( [ab] , {type : 'image/jpeg'});  
-	}  
+            if (files && files.length) {
+               file = files[0];
+
+               if (/^image\/\w+$/.test(file.type)) {
+                    blobURL = URL.createObjectURL(file);
+                    $image.one('built.cropper', function () {
+                        // Revoke when load complete
+                       URL.revokeObjectURL(blobURL);
+                    }).cropper('reset').cropper('replace', blobURL);
+                    $inputImage.val('');
+                } else {
+                	layer.msg('请选择正确的图片!');
+                }
+            }
+
+            imageName = file.name;
+            // Amazi UI 上传文件显示代码
+            var fileNames = '';
+            $.each(this.files, function() {
+                fileNames += '<span class="am-badge">' + this.name + '</span> ';
+            });
+            $('#file-list').html(fileNames);
+        });
+    } else {
+        $inputImage.prop('disabled', true).parent().addClass('disabled');
+    }
+    
 	
 	
-	//上传图片到七牛云
-	function updateqiniu(formData,loading){
-		console.info("上传七牛云");
-	    $.get('/qiniuyun/getUpToken',null,function(data){
-		   	 formData.append('token',data.data);
-		   	 $.ajax({
-		   	     url: 'http://upload.qiniu.com/',
-		   	     type: 'POST',
-		   	     cache: false,
-		   	     data: formData,
-		   	     processData: false,
-		   	     contentType: false
-		   	     
-		   	 }).done(function(res) {
-		   		 //关闭等待图标
-		   		layer.close(loading);
-		   		$(".portraitimage").attr("src","http://ouqhxmwfh.bkt.clouddn.com/"+res.key);
-		   	 }).fail(function(res) {
-		   		layer.close(loading);
-		   		layer.msg("上传失败请重试！！！");
-		   	 });
-		    },null,null);   
-	};
+
 	
 	
 	
@@ -309,14 +222,85 @@
 		
 	});
 	
+	
+	
+	//点击选择图片弹出div框
+    $("#up-img-touch").click(function(){
+		  $("#doc-modal-1").modal({width:'600px'});
+    });
+	
+	
+    //绑定图片上传七牛云事件
+    $('#up-btn-ok').on('click',function(){
+    	var img_src=$image.attr("src");
+    	if(img_src==""){
+    		layer.msg("没有选择上传的图片");
+    		return false;
+    	}
+    	
+		//上传图片时显示过度图标
+		var loading = layer.load(1, {shade: [0.1,'#fff']}); //0.1透明度的白色背景
+    	var url=$(this).attr("url");
+    	//把image画到画布中 画布大小为260x300
+    	var canvas=$("#image").cropper('getCroppedCanvas',{width: 260,height:300});
+        //canvas转换成二进制blob 上传到七牛云
+        canvas.toBlob(function(blob) {
+            //创建forme
+            var formData = new FormData();
+		    formData.append('file', blob);
+		    formData.append('key', currentTime() + "/" + imageName);
+		    updateqiniu(formData,loading);
+		    //关闭图片选择框
+		    $("#doc-modal-1").modal("close");
+        });
+    });
+	
+	
+	
+	
 //!click -----------------------------------------
 	
 	
 
 //function-------------------------------------------
 	
-	
-	
+    
+    //图片裁剪相关
+    function rotateimgright() {
+    	$("#image").cropper('rotate', 90);
+    }
+
+
+    function rotateimgleft() {
+    	$("#image").cropper('rotate', -90);
+    }
+
+	//上传图片到七牛云
+	function updateqiniu(formData,loading){
+		console.info("上传七牛云");
+	    $.get('/qiniuyun/getUpToken',null,function(data){
+		   	 formData.append('token',data.data);
+		   	 $.ajax({
+		   	     url: 'http://upload.qiniu.com/',
+		   	     type: 'POST',
+		   	     cache: false,
+		   	     data: formData,
+		   	     processData: false,
+		   	     contentType: false
+		   	     
+		   	 }).done(function(res) {
+		   		 //关闭等待图标
+		   		layer.close(loading);
+		   		$(".portraitimage").attr("src","http://ouqhxmwfh.bkt.clouddn.com/"+res.key);
+		   	 }).fail(function(res) {
+		   		layer.close(loading);
+		   		layer.msg("上传失败请重试！！！");
+		   	 });
+		    },null,null);   
+	};
+    
+    
+    
 //!function -----------------------------------------------
 
 	
@@ -335,5 +319,23 @@
 		str+= d.getSeconds(); 
 		return a + str;
 	}
+	/**  
+	 * 将以base64的图片url数据转换为Blob  
+	 * @param urlData  
+	 *            用url方式表示的base64图片数据  
+	 */  
+	function convertBase64UrlToBlob(urlData){  
+	      
+	    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte  
+	      
+	    //处理异常,将ascii码小于0的转换为大于0  
+	    var ab = new ArrayBuffer(bytes.length);  
+	    var ia = new Uint8Array(ab);  
+	    for (var i = 0; i < bytes.length; i++) {  
+	        ia[i] = bytes.charCodeAt(i);  
+	    }  
+	  
+	    return new Blob( [ab] , {type : 'image/jpeg'});  
+	}  
 	
 //!common-----------------------------------

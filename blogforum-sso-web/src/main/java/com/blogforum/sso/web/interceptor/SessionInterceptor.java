@@ -1,11 +1,8 @@
-package com.blogforum.sso.web.filter;
+package com.blogforum.sso.web.interceptor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,35 +10,66 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
 import com.blogforum.sso.enums.SessionExceptionUrlEnum;
-import com.blogforum.sso.enums.StaticExceptionEnum;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.session.SessionService;
 
 /**
- * 访问过滤器
- * 
+ * 登录检测拦截器
  * @author wwd
  *
  */
-@WebFilter(urlPatterns = "/*", filterName = "sessionFilter")
-public class SessionFilter extends OncePerRequestFilter {
-
-	private final static Logger	logger	= LoggerFactory.getLogger(SessionFilter.class);
-
+@Component
+public class SessionInterceptor implements HandlerInterceptor {
+	
+	private final static Logger	logger	= LoggerFactory.getLogger(SessionInterceptor.class);
+	
+	
 	/** session开头key */
+	@Value("${myValue.session_key}")
 	protected String			SESSION_KEY;
 
+	@Value("${myValue.ssoServerUrl}")
 	protected String			ssoUrl;
 
+	@Autowired
 	private SessionService		sessionService;
 
 
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+						throws Exception {
 
+		//如果不在拦截例外列表里 则判断用户是否登录
+		String url = request.getServletPath();
+		if (!(SessionExceptionUrlEnum.isException(url))) {
+			//获取cookie中的token
+			String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
+			if (sessionService == null ) {
+				LoggerUtil.error(logger, "sessionService为空");
+			}
+			
+			//获取redis中保存的session信息
+			User user = sessionService.getSessionUser(token);
+			//如果用户未登录 跳转到登录页面
+			if (null == user) {
+				loginAgain(request, response);
+				return false;
+			}
+			request.setAttribute("user", user);
+
+		}
+	
+		//不进行拦截
+		return true;
+	}
+	
 	/**
 	 * 返回用戶為登錄提醒 跳轉到登錄頁面
 	 * 
@@ -76,52 +104,21 @@ public class SessionFilter extends OncePerRequestFilter {
 		}
 
 	}
+	
+	
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse httpResponse, FilterChain filterChain)
-						throws ServletException, IOException {
-		//如果不在拦截例外列表里或者不在静态列表里 则判断用户是否登录
-		String url = httpRequest.getServletPath();
-		if (!(SessionExceptionUrlEnum.isException(url) ||
-						StaticExceptionEnum.isException(url))) {
-			//获取cookie中的token
-			String token = CookieUtils.getCookie(httpRequest, "COOKIE_TOKEN");
-			LoggerUtil.error(logger, "--------------------------------");
-			LoggerUtil.error(logger, "url" + ssoUrl);
-			LoggerUtil.error(logger, "session" + SESSION_KEY);
-			if (sessionService == null ) {
-				LoggerUtil.error(logger, "sessionService为空");
-			}
-			
-			//获取redis中保存的session信息
-			User user = sessionService.getSessionUser(token);
-			//如果用户未登录 跳转到登录页面
-			if (null == user) {
-				loginAgain(httpRequest, httpResponse);
-				return;
-			}
-			httpRequest.setAttribute("user", user);
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+						ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
 
-		}
-		//执行业务逻辑
-		filterChain.doFilter(httpRequest, httpResponse);
-		
 	}
 
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+						throws Exception {
+		// TODO Auto-generated method stub
 
-	public void setSESSION_KEY(String sESSION_KEY) {
-		SESSION_KEY = sESSION_KEY;
 	}
-
-
-	public void setSsoUrl(String ssoUrl) {
-		this.ssoUrl = ssoUrl;
-	}
-
-
-	public void setSessionService(SessionService sessionService) {
-		this.sessionService = sessionService;
-	}
-
 
 }
