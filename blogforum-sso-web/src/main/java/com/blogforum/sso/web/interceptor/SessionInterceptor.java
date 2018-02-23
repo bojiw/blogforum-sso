@@ -51,10 +51,6 @@ public class SessionInterceptor implements HandlerInterceptor {
 		if (!(SessionExceptionUrlEnum.isException(url))) {
 			//获取cookie中的token
 			String token = CookieUtils.getCookie(request, "COOKIE_TOKEN");
-			if (sessionService == null ) {
-				LoggerUtil.error(logger, "sessionService为空");
-			}
-			
 			//获取redis中保存的session信息
 			User user = sessionService.getSessionUser(token);
 			//如果用户未登录 跳转到登录页面

@@ -3,10 +3,14 @@ package com.blogforum.sso.service.manager.setting.impl;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
+import com.blogforum.common.tools.LoggerUtil;
 import com.blogforum.common.tools.ObjectUtils;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.common.exception.SSOBusinessException;
@@ -21,6 +25,8 @@ import com.google.common.collect.Lists;
 
 @Component
 public class BaseInfoManagerImpl implements BaseInfoManager {
+	
+	private final static Logger	logger	= LoggerFactory.getLogger(BaseInfoManagerImpl.class);
 
 	@Autowired
 	private CityService cityService;
@@ -105,6 +111,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		//判断前端传入的省市名数量和能在数据库中查询到的记录数是否一样 如果不一样则代表前端传入的数据有问题
 		List<City> citys = cityService.getByNames(names.toArray(new String[0]));
 		if (citys.size() != names.size()) {
+			LoggerUtil.error(logger, "数据库查询出来的数据,citys:{0},前端传入数据,names:{1}",JSON.toJSONString(citys),JSON.toJSONString(names));
 			throw new SSOBusinessException("传入城市信息错误");
 		}
 		
