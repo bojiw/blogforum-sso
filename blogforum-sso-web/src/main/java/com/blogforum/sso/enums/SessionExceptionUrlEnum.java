@@ -8,7 +8,12 @@ public enum SessionExceptionUrlEnum {
 	REGISTER("/register.html"),
 	MAILREGISTER("/mailregister.html"),
 	ERROR("/404.html"),
+	SEND_IPHONE_VERIFICATION("/modify/sendIphoneVerification"),
+	SEND_EMAIL_VERIFICATION("/modify/sendEmailVerification"),
+	UPDATE_IPHONE_PASSWORD("/modify/updateIphonePassword"),
+	UPDATE_EMAIL_PASSWORD("/modify/updateEmailPassword"),
 	LOGINREGISTER("/user/loginregister");
+	
 	private String url;
 
 	private SessionExceptionUrlEnum(String url) {

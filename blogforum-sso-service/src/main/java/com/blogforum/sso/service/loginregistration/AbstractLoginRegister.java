@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -12,15 +11,14 @@ import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.UUIDCreateUtils;
 import com.blogforum.sso.common.enums.SSOBizError;
-import com.blogforum.sso.common.exception.SSOBusinessException;
 import com.blogforum.sso.common.utils.MD5SaltUtils;
-import com.blogforum.sso.common.utils.MathCalculationUtil;
 import com.blogforum.sso.common.utils.Preconditions;
 import com.blogforum.sso.dao.mapper.UserMapper;
 import com.blogforum.sso.dao.redis.RedisClient;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.constant.ServiceConstant;
 import com.blogforum.sso.service.dao.UserService;
+import com.blogforum.sso.service.verification.VerificationCodeSend;
 
 public abstract class AbstractLoginRegister implements LoginRegister {
 
@@ -46,6 +44,10 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 
 	@Value("${myValue.domain}")
 	protected String		DOMAIN;
+	
+	/** 发送验证码服务 */
+	@Autowired
+	protected VerificationCodeSend verificationCodeSend;
 
 	@Autowired
 	protected UserService		userService;
@@ -57,22 +59,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	/**用户默认头像路径*/
 	@Value("${myValue.defaulUserImageUrl}")
 	private String			defaulUserImageUrl;
-	/**
-	 * 获取验证码并setEx值到redis
-	 * 
-	 * @param user
-	 * @return
-	 */
-	protected String getVerificationCodeAndSetExRedis(String key) {
-		StringBuffer newkey = new StringBuffer();
-		newkey.append(REGISTER_KEY).append(":").append(key);
-		//生成四位验证码
-		int verificationCode = MathCalculationUtil.getFourRandom();
-		//把验证码设置到redis中并30分钟后过期
-		redisClient.setExpire(newkey.toString(), verificationCode, 1800);
-		return String.valueOf(verificationCode);
 
-	}
 
 	/**
 	 * 效验用户名密码是否为空
@@ -155,18 +142,5 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token, "/", DOMAIN);
 	}
 
-	/**
-	 * 效验验证码是否正确
-	 * 
-	 * @param key
-	 * @author: wwd
-	 * @time: 2017年11月20日
-	 */
-	protected void checkRegisterKey(String iphoneOrmail, String verificationcode) {
-		String code = redisClient.get(REGISTER_KEY + ":" + iphoneOrmail);
-		if (!StringUtils.equals(code, verificationcode)) {
-			throw new SSOBusinessException(SSOBizError.VECODE_ERROR);
-		}
-	}
 
 }

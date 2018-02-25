@@ -1,6 +1,8 @@
-package com.blogforum.sso.service.manager.setting.impl;
+package com.blogforum.sso.service.manager.impl;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,14 +15,16 @@ import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.LoggerUtil;
 import com.blogforum.common.tools.ObjectUtils;
 import com.blogforum.common.tools.blogforumResult;
+import com.blogforum.sso.common.enums.SSOBizError;
 import com.blogforum.sso.common.exception.SSOBusinessException;
+import com.blogforum.sso.common.utils.Preconditions;
 import com.blogforum.sso.dao.redis.RedisClient;
 import com.blogforum.sso.pojo.entity.City;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.pojo.vo.BaseInfoUI;
 import com.blogforum.sso.service.dao.CityService;
 import com.blogforum.sso.service.dao.UserService;
-import com.blogforum.sso.service.manager.setting.BaseInfoManager;
+import com.blogforum.sso.service.manager.BaseInfoManager;
 import com.google.common.collect.Lists;
 
 @Component
@@ -117,18 +121,66 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	 * @time: 2018年2月20日
 	 */
 	private void checkBaseInfo(BaseInfoUI baseInfoUI) {
-
-		if (StringUtils.isBlank(baseInfoUI.getUsername())) {
-			throw new SSOBusinessException("用户名不能为空");
-		}
+		Preconditions.checkNotNull(baseInfoUI.getUsername(), "用户名不能为空");
 		//对前端传的所在地省市进行效验
 		checkCity(baseInfoUI.getProvinceLocation(), baseInfoUI.getCityLocation());
 		//对前端传的出生省市进行效验
 		checkCity(baseInfoUI.getBirthProvince(), baseInfoUI.getBirthCity());
-
-
+		String iphone = baseInfoUI.getIphone();
+		String email = baseInfoUI.getEmail();
+		if (StringUtils.isNotEmpty(iphone)) {
+			checkIphone(iphone);
+		}
+		if (StringUtils.isNotEmpty(email)) {
+			checkEmail(email);
+		}
 
 	}
+	
+	
+	/**
+	 * 对手机号进行效验
+	 * @param iphone
+	 * @author: wwd
+	 * @time: 2018年2月25日
+	 */
+	private void checkIphone(String iphone){
+		//效验手机号
+		String regExp = "^1[34578]\\d{9}$";  
+		Pattern p = Pattern.compile(regExp);  
+		Matcher m = p.matcher(iphone); 
+		if (!m.matches()) {
+			LoggerUtil.error(logger, "手机号:{0}", iphone);
+			throw new SSOBusinessException("手机号格式不对");
+		}
+		User user = new User();
+		user.setIphone(iphone);
+		User newUser = userService.getUserByEmailORIphone(user);
+		Preconditions.checkNull(newUser, SSOBizError.IPHONE_ISREGISTER);
+	}
+	
+	/**
+	 * 对邮箱进行效验
+	 * @param iphone
+	 * @author: wwd
+	 * @time: 2018年2月25日
+	 */
+	private void checkEmail(String email){
+		//效验手机号
+		String regExp = "/^[^@]+@.+\\..+$/";  
+		Pattern p = Pattern.compile(regExp);  
+		Matcher m = p.matcher(email); 
+		if (!m.matches()) {
+			LoggerUtil.error(logger, "邮箱:{0}", email);
+			throw new SSOBusinessException("邮箱格式不对");
+		}
+		User user = new User();
+		user.setEmail(email);
+		User newUser = userService.getUserByEmailORIphone(user);
+		Preconditions.checkNull(newUser, SSOBizError.EMAIL_ISREGISTER);
+	}
+	
+	
 	
 	/**
 	 * 验证省市是否正确

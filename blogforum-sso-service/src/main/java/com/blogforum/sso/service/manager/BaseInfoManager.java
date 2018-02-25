@@ -1,4 +1,4 @@
-package com.blogforum.sso.service.manager.setting;
+package com.blogforum.sso.service.manager;
 
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.pojo.vo.BaseInfoUI;

@@ -12,6 +12,32 @@ import com.blogforum.sso.common.exception.SSOBusinessException;
  */
 public class Preconditions {
 	
+	
+	/**
+	 * 检查是否为空 为空则抛异常
+	 * @param obj
+	 * @param msg
+	 */
+	public static void checkNotNull(Object obj,String msg){
+		
+		try {
+			checkNotNull(obj);
+		} catch (Exception e) {
+			throw new SSOBusinessException(msg);
+		}
+	}
+	
+	
+	private static void checkNotNull(Object obj){
+		if (obj instanceof String) {
+			if (StringUtils.isBlank(obj.toString())) {
+				throw new RuntimeException();
+			}
+		}else {
+			com.google.common.base.Preconditions.checkNotNull(obj);
+		}
+	}
+	
 	/**
 	 * 检查是否为空 为空则抛异常
 	 * @param obj
@@ -20,12 +46,7 @@ public class Preconditions {
 	public static void checkNotNull(Object obj,BizErrorEnum bizError){
 		
 		try {
-			if (obj instanceof String) {
-				if (StringUtils.isBlank(obj.toString())) {
-					throw new Exception();
-				}
-			}
-			com.google.common.base.Preconditions.checkNotNull(obj);
+			checkNotNull(obj);
 		} catch (Exception e) {
 			throw new SSOBusinessException(bizError);
 		}
@@ -37,14 +58,22 @@ public class Preconditions {
 	 */
 	public static void checkNotNull(Object obj,SSOBizError bizError){
 		try {
-			if (obj instanceof String) {
-				if (StringUtils.isBlank(obj.toString())) {
-					throw new Exception();
-				}
-			}
-			com.google.common.base.Preconditions.checkNotNull(obj);
+			checkNotNull(obj);
 		} catch (Exception e) {
 			throw new SSOBusinessException(bizError);
+		}
+	}
+	
+	/**
+	 * 检查是否为空 为空则抛异常
+	 * @param obj
+	 * @param msg
+	 */
+	public static void checkNull(Object obj,String msg){
+		try {
+			checkNull(obj);
+		} catch (Exception e) {
+			throw new SSOBusinessException(msg);
 		}
 	}
 	
@@ -56,7 +85,9 @@ public class Preconditions {
 	 * @param msg
 	 */
 	public static void checkNull(Object obj,BizErrorEnum bizError){
-		if (obj != null) {
+		try {
+			checkNull(obj);
+		} catch (Exception e) {
 			throw new SSOBusinessException(bizError);
 		}
 	}
@@ -67,8 +98,23 @@ public class Preconditions {
 	 * @param msg
 	 */
 	public static void checkNull(Object obj,SSOBizError bizError){
-		if (obj != null) {
+		try {
+			checkNull(obj);
+		} catch (Exception e) {
 			throw new SSOBusinessException(bizError);
+		}
+	}
+	
+	
+	private static void checkNull(Object obj){
+		if (obj instanceof String) {
+			if (StringUtils.isNotBlank(obj.toString())) {
+				throw new RuntimeException();
+			}
+		}else {
+			if (obj != null) {
+				throw new RuntimeException();
+			}
 		}
 	}
 	

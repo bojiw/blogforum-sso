@@ -22,7 +22,7 @@ public class SmsRegister extends AbstractLoginRegister {
 	@Override
 	protected void checkSmsValue(User user, String verificationcode) {
 		super.checkSmsValue(user, verificationcode);
-		super.checkRegisterKey(user.getIphone(),verificationcode);
+		verificationCodeSend.checkRegisterKey(user.getIphone(), verificationcode);
 	}
 	
 }

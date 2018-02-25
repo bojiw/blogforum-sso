@@ -14,10 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.LoggerUtil;
-import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.enums.SessionExceptionUrlEnum;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.session.SessionService;
@@ -57,16 +55,17 @@ public class SessionInterceptor implements HandlerInterceptor {
 			User user = sessionService.getSessionUser(token);
 			//如果用户未登录 跳转到登录页面
 			if (null == user) {
-				response.setCharacterEncoding("UTF-8");
-				PrintWriter out;
-				try {
-					out = response.getWriter();
-					out.print(ssoUrl);
-				} catch (IOException e) {
-					LoggerUtil.error(logger, e, "跳转登录页面异常");
+				
+				// 判断是否ajax请求
+				if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
+									.getHeader("X-Requested-With") != null && request.getHeader(
+														"X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+					//页面请求返回跳转提示
+					loginAgain(request, response);
+				}else {
+					ajaxLoginAgain(response);
 				}
 				
-				//loginAgain(request, response);
 				return false;
 			}
 			request.setAttribute("user", user);
@@ -76,6 +75,25 @@ public class SessionInterceptor implements HandlerInterceptor {
 		//不进行拦截
 		return true;
 	}
+	
+	/**
+	 * 返回登录页面地址 前端直接跳转
+	 * 
+	 * @author: wwd
+	 * @time: 2018年2月24日
+	 */
+	private void ajaxLoginAgain(HttpServletResponse response){
+		//ajax请求返回登录地址
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print(ssoUrl);
+		} catch (IOException e) {
+			LoggerUtil.error(logger, e, "跳转登录页面异常");
+		}
+	}
+	
 	
 	/**
 	 * 返回用戶為登錄提醒 跳轉到登錄頁面

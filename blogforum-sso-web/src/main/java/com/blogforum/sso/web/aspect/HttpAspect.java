@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.IpUtils;
 /**
  * aop打印http日志类
@@ -38,7 +39,7 @@ public class HttpAspect {
 		//获取真实ip
 		String ip = IpUtils.getIp(request);
 		logger.info("ip地址为：{}",ip);
-		logger.info(attributes.getRequest().toString());
+		logger.info(JSON.toJSONString(request.getParameterMap()));
 	}
 	
 
@@ -47,7 +48,7 @@ public class HttpAspect {
 	 */
 	@AfterReturning(returning = "object",pointcut = "log()")
 	public void doAfterReturning(Object object){
-		logger.info(object.toString());
+		logger.info(JSON.toJSONString(object));
 	}
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blogforum.common.tools.BaseConverter;
+import com.blogforum.sso.common.utils.MD5SaltUtils;
 import com.blogforum.sso.dao.mapper.UserMapper;
 import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.facade.model.UserVO;
@@ -52,6 +53,11 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 
 	@Override
 	public void updatePwd(User user) {
+		// 给用户的密码进行加密
+		String salt = MD5SaltUtils.randomCreateSalt();
+		String encodePWD = MD5SaltUtils.encode(user.getPassword(), salt);
+		user.setSalt(salt);
+		user.setPassword(encodePWD);
 		userMapper.updatePwd(user);
 		
 	}
@@ -60,6 +66,11 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 	public User getById(String id) {
 		User user = userMapper.getById(id);
 		return user;
+	}
+
+	@Override
+	public User getUserByEmailORIphone(User uesr) {
+		return userMapper.getUserByEmailORIphone(uesr);
 	}
 
 

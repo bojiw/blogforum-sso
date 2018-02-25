@@ -12,7 +12,7 @@ import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.pojo.vo.BaseInfoUI;
-import com.blogforum.sso.service.manager.setting.BaseInfoManager;
+import com.blogforum.sso.service.manager.BaseInfoManager;
 
 @RestController
 @RequestMapping("/setting")

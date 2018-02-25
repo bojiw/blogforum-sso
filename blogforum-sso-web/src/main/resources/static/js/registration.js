@@ -23,8 +23,6 @@ $(function(){
 		
 		
 		var val = $("#verification");
-		//设置验证码60秒才可以点击
-		time(val);
 		$.post("/user/loginregister",{
 			username:$("[name = 'username']").val(),
 			password:$("[name = 'password']").val(),
@@ -37,6 +35,8 @@ $(function(){
 				$("[name='name']").focus();
 			} else {
 				layer.msg("验证码已经发送");
+				//设置验证码60秒才可以点击
+				time(val);
 			}
 		});
 	});
@@ -60,8 +60,7 @@ $(function(){
 	    }
 		
 		var val = $("#mailverification");
-		//设置验证码60秒才可以点击
-		time(val);
+
 		$.post("/user/loginregister",{
 			username:$("[name = 'username']").val(),
 			password:$("[name = 'password']").val(),
@@ -74,6 +73,8 @@ $(function(){
 				$("[name='name']").focus();
 			} else {
 				layer.msg("验证码已经发送");
+				//设置验证码60秒才可以点击
+				time(val);
 			}
 		});
 	});

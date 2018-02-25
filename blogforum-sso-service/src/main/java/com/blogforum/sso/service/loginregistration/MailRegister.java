@@ -23,7 +23,7 @@ public class MailRegister extends AbstractLoginRegister {
 	@Override
 	protected void checkMailValue(User user, java.lang.String verificationcode) {
 		super.checkMailValue(user, verificationcode);
-		super.checkRegisterKey(user.getEmail(),verificationcode);
+		verificationCodeSend.checkRegisterKey(user.getEmail(), verificationcode);
 	}
 
 }

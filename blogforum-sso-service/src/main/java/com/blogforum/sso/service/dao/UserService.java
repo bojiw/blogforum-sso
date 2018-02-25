@@ -32,6 +32,15 @@ public interface UserService extends BaseService<User> {
 	 */
 	public User getById(String id);
 	
+	/**
+	 * 根据邮件或者手机号获取用户
+	 * @param uesr
+	 * @return
+	 * @author: wwd
+	 * @time: 2017年11月8日
+	 */
+	public User getUserByEmailORIphone(User uesr);
+	
 	
 	
 }
