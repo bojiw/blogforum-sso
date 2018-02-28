@@ -16,12 +16,11 @@ import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.facade.enums.SsoMsgRouterKeyEnum;
 import com.blogforum.sso.service.rabbitmq.producer.SendMqMessage;
 
-
 @Component
 public class SendMqMessageImpl implements SendMqMessage {
-	
-	private final static Logger LOGGER =  LoggerFactory.getLogger(SendMqMessageImpl.class);
-	private RabbitTemplate rabbitTemplate;
+
+	private final static Logger	LOGGER	= LoggerFactory.getLogger(SendMqMessageImpl.class);
+	private RabbitTemplate		rabbitTemplate;
 
 	/**
 	 * 构造方法注入
@@ -40,14 +39,15 @@ public class SendMqMessageImpl implements SendMqMessage {
 		messageProperties.setMessageId(UUID.randomUUID().toString());
 		Message message = new Message(body.getBytes(), messageProperties);
 		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info(new StringBuffer("发送消息:").append(message.toString()).append("correlationId:").append(correlationId).toString());
+			LOGGER.info(new StringBuffer("发送消息:消息体内容").append(body).append(",消息id:").append(message.toString())
+								.append("correlationId:").append(correlationId).toString());
 		}
 		rabbitTemplate.convertAndSend(exchangeName.getName(), routingKey.getName(), message, correlationId);
 	}
 
 	@Override
 	public void sendMsg(Object content, SsoMsgExchangeNameEnum exchangeName) {
-		sendMsg(content,exchangeName,SsoMsgRouterKeyEnum.DEFAULT_ROUTER_KEY);
-		
+		sendMsg(content, exchangeName, SsoMsgRouterKeyEnum.DEFAULT_ROUTER_KEY);
+
 	}
 }
