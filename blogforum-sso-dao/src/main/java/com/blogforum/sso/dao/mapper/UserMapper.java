@@ -12,7 +12,7 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2017年11月8日
 	 */
-	public User getUserByPwdName(User user);
+	User getUserByPwdName(User user);
 	
 	/**
 	 * 根据邮件或者手机号获取用户
@@ -21,7 +21,28 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2017年11月8日
 	 */
-	public User getUserByEmailORIphone(User uesr);
+	User getUserByEmailORIphone(User uesr);
+	
+	
+	/**
+	 * 根据用户名邮件或者手机号获取用户
+	 * @param uesr
+	 * @return
+	 * @author: wwd
+	 * @time: 2017年11月8日
+	 */
+	User getUserByNameOREmailORIphone(User uesr);
+	
+	
+
+	/**
+	 * 支持用户名 邮箱 手机号登录 只要密码和上面中的其中一个对的上就可以获取到用户
+	 * @param user
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月1日
+	 */
+	User getUserByPwdNameOREmailORIphone(User user);
 	
 	/**
 	 * 根据用户名获取用户
@@ -30,7 +51,7 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2017年11月8日
 	 */
-	public User getUserByName(User user);
+	User getUserByName(User user);
 	
 	/**
 	 * 根据id查询
@@ -39,7 +60,7 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public User getById(String id);
+	User getById(String id);
 	
 	
 	/**
@@ -48,7 +69,7 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public void updateBaseInfo(User user);
+	void updateBaseInfo(User user);
 	
 	/**
 	 * 更新用户密码
@@ -56,7 +77,7 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public void updatePwd(User user);
+	void updatePwd(User user);
 	
 	
 }

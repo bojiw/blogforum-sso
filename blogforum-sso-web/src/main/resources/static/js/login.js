@@ -11,7 +11,7 @@
 	$("#login").click(function(){
 		var name = $.trim($("[name = 'username']").val());
 		if(name == ""){
-			layer.tips('用户名未填写!','[name = "username"]',{tips:[2,"#3595CC"]});
+			layer.tips('账号未填写!','[name = "username"]',{tips:[2,"#3595CC"]});
 			$("[name = 'username']").focus();
 			return false;
 		}

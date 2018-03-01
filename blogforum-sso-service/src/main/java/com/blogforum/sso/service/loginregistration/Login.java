@@ -30,11 +30,26 @@ public class Login extends AbstractLoginRegister {
 		}
 		User user = context.getUser();
 		super.checkUserPwd(user);
+		//因为需要支持用户名 手机号 邮箱登录 而不确定用户输入的是什么 所以直接给三个都进行设置 后续sql也使用or进行三个都查询
+		setUserEmailOrIphone(user);
 		//判断用户名密码是否正确 正确则设置session和cookie
 		isUserAndsetSession(user, context.getHttpServletResponse());
 		return blogforumResult.ok(noteServerUrl);
 	}
 
+	
+	/**
+	 * 把username赋值给email和iphone
+	 * @param user
+	 * @author: wwd
+	 * @time: 2018年3月1日
+	 */
+	private void setUserEmailOrIphone(User user){
+		user.setEmail(user.getUsername());
+		user.setIphone(user.getUsername());
+	}
+	
+	
 	/**
 	 * 判断用户名密码是否正确并设置session
 	 * 
@@ -43,13 +58,13 @@ public class Login extends AbstractLoginRegister {
 	 */
 	private void isUserAndsetSession(User user, HttpServletResponse httpServletResponse) {
 		//获取数据库中用户名对应的salt
-		User saltUser = userMapper.getUserByName(user);
+		User saltUser = userMapper.getUserByNameOREmailORIphone(user);
 		Preconditions.checkNotNull(saltUser, BizErrorEnum.NO_USER);
 		//使用salt对用户上传的密码进行加密再重新设置
 		String encodePWD = MD5SaltUtils.encode(user.getPassword(), saltUser.getSalt());
 		user.setPassword(encodePWD);
 		//通过用户名密码获取用户
-		User newUser = userMapper.getUserByPwdName(user);
+		User newUser = userMapper.getUserByPwdNameOREmailORIphone(user);
 		Preconditions.checkNotNull(newUser, BizErrorEnum.FAIL_USERPWD);
 		//去掉保存的密码
 		newUser.setPassword("");
