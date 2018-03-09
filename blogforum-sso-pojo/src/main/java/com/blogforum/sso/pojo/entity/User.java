@@ -32,7 +32,7 @@ public class User extends DataEntity<User> {
 	/**
 	 * 角色
 	 */
-	private int role;
+	private Integer role;
 	/**
 	 * Email邮件
 	 */
@@ -53,7 +53,7 @@ public class User extends DataEntity<User> {
 	/**
 	 * 状态 0为正常 1为无法登录 2为删除状态
 	 */
-	private int status = 0;
+	private Integer status = 0;
 	/**
 	 * 头像路径
 	 */
@@ -112,11 +112,11 @@ public class User extends DataEntity<User> {
 		this.salt = salt;
 	}
 
-	public int getRole() {
+	public Integer getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(Integer role) {
 		this.role = role;
 	}
 
@@ -153,11 +153,11 @@ public class User extends DataEntity<User> {
 		this.loginIp = loginIp;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

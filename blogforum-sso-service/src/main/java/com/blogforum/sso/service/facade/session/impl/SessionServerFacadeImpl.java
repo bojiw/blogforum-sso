@@ -1,4 +1,4 @@
-package com.blogforum.sso.service.session.impl;
+package com.blogforum.sso.service.facade.session.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

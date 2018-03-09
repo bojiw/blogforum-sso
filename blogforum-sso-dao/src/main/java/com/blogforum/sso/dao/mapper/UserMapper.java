@@ -2,7 +2,10 @@ package com.blogforum.sso.dao.mapper;
 
 
 
+import java.util.List;
+
 import com.blogforum.sso.pojo.entity.User;
+import com.blogforum.sso.pojo.vo.UserDateIn;
 
 public interface UserMapper extends CrudMapper<User> {
 	/**
@@ -78,6 +81,27 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @time: 2018年2月20日
 	 */
 	void updatePwd(User user);
+	
+	
+	/**
+	 * 获取对应状态用户总数
+	 * 
+	 * @return 总数
+	 * @author: wwd
+	 * @time: 2018年3月3日
+	 */
+	Integer getCount(Integer status);
+	
+	/**
+	 * 获取指定时间段的用户数
+	 * 
+	 * @param userDateIn
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月3日
+	 */
+	Integer getDateInUser(UserDateIn userDateIn);
+	
 	
 	
 }

@@ -39,7 +39,7 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    username = #{username} and password = #{password}
+	    username = #{username} and password = #{password} and status = '0'
 	    
 	</select>
 	
@@ -49,7 +49,7 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    username = #{username}
+	    username = #{username} and status = '0'
 	    
 	</select>
 	<select id="getUserByEmailORIphone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
@@ -57,7 +57,7 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    email = #{email} or iphone = #{iphone}
+	    email = #{email} or iphone = #{iphone} and status = '0'
 	</select>
 	
 	
@@ -67,7 +67,7 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    username = #{username} or email = #{email} or iphone = #{iphone}
+	    username = #{username} or email = #{email} or iphone = #{iphone} and status = '0'
 	</select>
 	
 	
@@ -76,7 +76,7 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    password = #{password} and ( username = #{username} or email = #{email} or iphone = #{iphone})
+	    password = #{password} and ( username = #{username} or email = #{email} or iphone = #{iphone}) and status = '0'
 	</select>
 	
 	
@@ -85,13 +85,52 @@
 	    <include refid="user"/>
 	    from user u
 	    where
-	    	id = #{id}
+	    	id = #{id} and status = '0'
 	</select>
+	
+	<select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	    select
+	    	count(1)
+	    from user
+	    <if test="_parameter != null">
+	    where
+			status = #{status}
+		</if>
+	    
+	</select>
+	
+	
+	
+	<select id="getDateInUser" parameterType="com.blogforum.sso.pojo.vo.UserDateIn" resultType="java.lang.Integer">
+	    select
+	    	count(1)
+	    from user u
+	    where
+			status = #{status} 
+			<if test="startDate != null">
+			    AND u.create_date <![CDATA[>=]]> #{startDate}
+			</if>
+ 			<if test="endDate != null">
+ 			    AND u.create_date <![CDATA[<=]]>#{endDate}
+ 			</if>
+	</select>
+	
+	<select id="queryList" parameterType="com.blogforum.sso.pojo.entity.User" resultMap="userlist">
+	    select 
+	    <include refid="user"/>
+	    from user u 
+	    <if test="status != null">
+	    where
+			status = #{status}
+		</if>
+		order by create_date desc
+	</select>
+	
 	
 	
 	<update id="delete" parameterType="com.blogforum.sso.pojo.entity.User">
 	    update user
-	    set status = '1' and update_date=#{updateDate}
+	    set status = '2' and update_date=#{updateDate}
 	    where
 	    	id = #{id}
 	    
@@ -135,4 +174,26 @@
 	    u.birth_province birthProvince,
 	    u.birth_city birthCity
 	</sql>
+	
+    <resultMap type="com.blogforum.sso.pojo.entity.User" id="userlist">
+        <result property="id" column="id" />
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="role" column="role"/>
+        <result property="iphone" column="iphone"/>
+        <result property="createDate" column="createDate"/>
+        <result property="updateDate" column="updateDate" />
+        <result property="loginDate" column="loginDate"/>
+        <result property="loginIp" column="loginIp"/>
+        <result property="status" column="status"/>
+        <result property="image" column="image"/>
+        <result property="updateUser" column="updateUser"/>
+        <result property="remarks" column="remarks" />
+        <result property="provinceLocation" column="provinceLocation"/>
+        <result property="cityLocation" column="cityLocation"/>
+        <result property="birthProvince" column="birthProvince"/>
+        <result property="birthCity" column="birthCity"/>
+    </resultMap>
+	
+	
 </mapper>

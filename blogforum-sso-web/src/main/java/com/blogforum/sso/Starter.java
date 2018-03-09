@@ -1,5 +1,7 @@
 package com.blogforum.sso;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -16,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.pagehelper.PageHelper;
 
 @SpringBootApplication
 @ServletComponentScan
@@ -44,6 +47,19 @@ public class Starter extends SpringBootServletInitializer{
 		dataSource.setConnectionProperties("config.decrypt=true");
 		return dataSource;
 	}
+	
+	//配置mybatis的分页插件pageHelper
+    @Bean
+    public PageHelper pageHelper(){
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("offsetAsPageNum","true");
+        properties.setProperty("rowBoundsWithCount","true");
+        properties.setProperty("reasonable","true");
+        properties.setProperty("dialect","mysql");    //配置mysql数据库的方言
+        pageHelper.setProperties(properties);
+        return pageHelper;
+    }
 	
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {

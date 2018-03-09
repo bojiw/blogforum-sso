@@ -1,5 +1,8 @@
 package com.blogforum.sso.service.dao;
 
+import com.blogforum.sso.facade.model.SsoPage;
+import com.blogforum.sso.facade.model.SsoUserPageRequest;
+import com.blogforum.sso.facade.model.UserVO;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.base.BaseService;
 
@@ -40,6 +43,15 @@ public interface UserService extends BaseService<User> {
 	 * @time: 2017年11月8日
 	 */
 	public User getUserByEmailORIphone(User uesr);
+	
+	/**
+	 * 分页查询用户
+	 * @param request
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月3日
+	 */
+	SsoPage<UserVO> queryAllUserPage(SsoUserPageRequest request);
 	
 	
 	

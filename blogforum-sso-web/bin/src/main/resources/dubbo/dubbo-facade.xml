@@ -22,11 +22,11 @@
     <dubbo:service interface="com.blogforum.sso.facade.user.UserServerFacade"  
         ref="userServerFacade" retries="0" timeout="3000" />  
     
-    <bean id="userServerFacade" class="com.blogforum.sso.service.user.impl.UserServerFacadeImpl"></bean>
+    <bean id="userServerFacade" class="com.blogforum.sso.service.facade.user.impl.UserServerFacadeImpl"></bean>
     
     <dubbo:service interface="com.blogforum.sso.facade.session.SessionServerFacade"  
         ref="sessionServerFacade" retries="0" timeout="3000" />  
     
-    <bean id="sessionServerFacade" class="com.blogforum.sso.service.session.SessionServerFacadeImpl"></bean>
+    <bean id="sessionServerFacade" class="com.blogforum.sso.service.facade.session.impl.SessionServerFacadeImpl"></bean>
     
 </beans>  
