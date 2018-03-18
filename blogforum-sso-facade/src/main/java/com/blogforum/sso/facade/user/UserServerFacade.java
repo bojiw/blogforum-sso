@@ -28,13 +28,16 @@ public interface UserServerFacade {
 	
 
 	/**
-	 * 分页获取用户
+	 * 分页获取或者搜索用户
 	 * @param request
 	 * @return
 	 * @author: wwd
 	 * @time: 2018年3月3日
 	 */
-	Result<SsoPage<UserVO>> queryAllUserPage(SsoUserPageRequest request);
+	Result<SsoPage<UserVO>> querySearchAllUserPage(SsoUserPageRequest request);
+	
+	
+	
 	
 	
 

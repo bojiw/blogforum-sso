@@ -2,6 +2,7 @@ package com.blogforum.sso.service.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,9 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		UserStatusEnum status = request.getStatus();
 		Integer userstatus =  (status == null) ? null : status.getValue();
 		user.setStatus(userstatus);
+		if (StringUtils.isNotEmpty(request.getKeyword())) {
+			user.setUsername(request.getKeyword());
+		}
 		
 		List<User> users = userMapper.queryList(user);
 		Page<User> pageUser = (Page<User>)users;

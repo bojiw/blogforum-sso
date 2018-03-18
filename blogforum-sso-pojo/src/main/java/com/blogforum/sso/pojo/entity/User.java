@@ -78,8 +78,13 @@ public class User extends DataEntity<User> {
 	 * 出生城市
 	 */
 	private String birthCity;
-
-
+	
+	public User() {
+	}
+	
+	public User(String id) {
+		this.id = id;
+	}
 	public String getId() {
 		return id;
 	}

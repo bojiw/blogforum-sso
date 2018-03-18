@@ -1,5 +1,7 @@
 package com.blogforum.sso.facade.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 用户状态枚举
  * @author wwd
@@ -20,6 +22,34 @@ public enum UserStatusEnum {
 		this.value = value;
 		this.chinese = chinese;
 	}
+	
+	public static UserStatusEnum getStatusByValue(Integer value){
+		for (UserStatusEnum statusEnum : values()) {
+			if (statusEnum.getValue() == value) {
+				return statusEnum;
+			}
+		}
+		return null;
+	}
+	
+	public static String getChineseByValue(Integer value){
+		for (UserStatusEnum statusEnum : values()) {
+			if (statusEnum.getValue() == value) {
+				return statusEnum.getChinese();
+			}
+		}
+		return "";
+	}
+	
+	public static String getChineseByChinese(String chinese){
+		for (UserStatusEnum statusEnum : values()) {
+			if (StringUtils.equals(chinese, statusEnum.getChinese())) {
+				return statusEnum.getChinese();
+			}
+		}
+		return "";
+	}
+	
 
 	public Integer getValue() {
 		return value;

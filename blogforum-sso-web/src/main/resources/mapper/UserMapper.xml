@@ -119,9 +119,12 @@
 	    select 
 	    <include refid="user"/>
 	    from user u 
+	    where id != ""
+	    <if test="username != null and username != ''">
+			and username = #{username}
+		</if>
 	    <if test="status != null">
-	    where
-			status = #{status}
+			and status = #{status}
 		</if>
 		order by create_date desc
 	</select>

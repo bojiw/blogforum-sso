@@ -20,6 +20,11 @@ public class SsoUserPageRequest extends BaseVO {
 	 * 请求页数大小 默认查询20条
 	 */
 	private Integer				pageSize			= 20;
+	
+	/**
+	 * 目前只支持搜索用户名
+	 */
+	private String				keyword;
 
 	private UserStatusEnum		status;
 
@@ -68,4 +73,13 @@ public class SsoUserPageRequest extends BaseVO {
 		this.status = status;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	
 }
