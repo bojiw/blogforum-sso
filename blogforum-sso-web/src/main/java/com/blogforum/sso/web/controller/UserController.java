@@ -44,6 +44,7 @@ public class UserController {
 
 	@GetMapping("getCount")
 	public blogforumResult getCount(){
+		//测试
 //        Calendar c = Calendar.getInstance();
 //        
 //        //过去七天

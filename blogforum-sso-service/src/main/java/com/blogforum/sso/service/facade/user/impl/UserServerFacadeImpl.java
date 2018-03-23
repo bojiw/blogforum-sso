@@ -9,6 +9,8 @@ import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.model.ErrorContext;
 import com.blogforum.common.model.Result;
 import com.blogforum.common.tools.BaseConverter;
+import com.blogforum.common.tools.ObjectUtils;
+import com.blogforum.sso.common.exception.SSOBusinessException;
 import com.blogforum.sso.dao.mapper.UserMapper;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
@@ -37,9 +39,26 @@ public class UserServerFacadeImpl implements UserServerFacade {
 
 	@Override
 	public Result<SsoPage<UserVO>> querySearchAllUserPage(SsoUserPageRequest request) {
+		checkPageRequest(request);
 		SsoPage<UserVO> page = userService.queryAllUserPage(request);
 		Result<SsoPage<UserVO>> result = new Result<SsoPage<UserVO>>(true, page);
 		return result;
+	}
+	
+	/**
+	 * 对分页请求参数做效验
+	 * @param request
+	 * @author: wwd
+	 * @time: 2018年3月23日
+	 */
+	private void checkPageRequest(SsoUserPageRequest request){
+		if (ObjectUtils.isObjAllNull(request)) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"请求对象为null");
+		}
+		if (ObjectUtils.isObjAllNull(request.getPageSize(),request.getPageNo())) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"分页参数不能为null");
+		}
+		
 	}
 
 	@Override

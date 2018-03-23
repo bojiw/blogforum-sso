@@ -2,6 +2,8 @@ package com.blogforum.sso.facade.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * rpc传输用户类
  * 
@@ -71,6 +73,16 @@ public class UserVO extends BaseVO {
 	 * 出生城市
 	 */
 	private String	birthCity;
+	
+	// 创建时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date createDate; 
+
+	// 最后修改时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updateDate; 
+	// 最后修改人
+	private String updateUser; 
 
 	public String getId() {
 		return id;
@@ -183,6 +195,32 @@ public class UserVO extends BaseVO {
 	public void setBirthCity(String birthCity) {
 		this.birthCity = birthCity;
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+	
+	
 
 
 }
