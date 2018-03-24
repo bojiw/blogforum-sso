@@ -62,6 +62,9 @@ public class DataEntity<T> extends BaseEntity {
 		this.updateDate = updateDate;
 	}
 
+	public void updateDate(){
+		this.updateDate = new Date();
+	}
 
 
 	public String getUpdateUser() {

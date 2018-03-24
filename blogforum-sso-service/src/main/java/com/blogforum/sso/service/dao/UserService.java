@@ -8,7 +8,7 @@ import com.blogforum.sso.service.base.BaseService;
 
 public interface UserService extends BaseService<User> {
 
-	public void createUser(User user);
+	void createUser(User user);
 	
 	/**
 	 * 更新用户基本信息
@@ -16,7 +16,7 @@ public interface UserService extends BaseService<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public void updateBaseInfo(User user);
+	void updateBaseInfo(User user);
 	
 	/**
 	 * 更新用户密码
@@ -24,7 +24,7 @@ public interface UserService extends BaseService<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public void updatePwd(User user);
+	void updatePwd(User user);
 	
 	/**
 	 * 根据id查询
@@ -33,7 +33,7 @@ public interface UserService extends BaseService<User> {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	public User getById(String id);
+	User getById(String id);
 	
 	/**
 	 * 根据邮件或者手机号获取用户
@@ -42,7 +42,7 @@ public interface UserService extends BaseService<User> {
 	 * @author: wwd
 	 * @time: 2017年11月8日
 	 */
-	public User getUserByEmailORIphone(User uesr);
+	User getUserByEmailORIphone(User uesr);
 	
 	/**
 	 * 分页查询用户
@@ -52,6 +52,14 @@ public interface UserService extends BaseService<User> {
 	 * @time: 2018年3月3日
 	 */
 	SsoPage<UserVO> queryAllUserPage(SsoUserPageRequest request);
+	
+	/**
+	 * 更新用户信息
+	 * @param user
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	void updateStatus(User user);
 	
 	
 	

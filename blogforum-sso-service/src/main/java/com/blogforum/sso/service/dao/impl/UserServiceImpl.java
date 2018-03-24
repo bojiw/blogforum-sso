@@ -66,6 +66,8 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		String encodePWD = MD5SaltUtils.encode(user.getPassword(), salt);
 		user.setSalt(salt);
 		user.setPassword(encodePWD);
+		user.updateDate();
+		user.setUpdateUser(user.getUpdateUser());
 		userMapper.updatePwd(user);
 		
 	}
@@ -101,6 +103,13 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		SsoPage<UserVO> ssoPage = new SsoPage<>(pageNo, pageSize, pageUser.getTotal());
 		ssoPage.setList(convertList);
 		return ssoPage;
+	}
+
+	@Override
+	public void updateStatus(User user) {
+		user.updateDate();
+		userMapper.updateStatus(user);
+		
 	}
 
 

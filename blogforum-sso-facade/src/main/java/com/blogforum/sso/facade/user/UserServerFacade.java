@@ -6,6 +6,8 @@ import java.util.Date;
 import com.blogforum.common.model.Result;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
+import com.blogforum.sso.facade.model.SsoUpdateUserPwd;
+import com.blogforum.sso.facade.model.SsoUpdateUserStatus;
 import com.blogforum.sso.facade.model.SsoUserPageRequest;
 import com.blogforum.sso.facade.model.UserVO;
 
@@ -61,6 +63,26 @@ public interface UserServerFacade {
 	 * @time: 2018年3月3日
 	 */
 	Result<Integer> getDateInUser(Date startDate,Date endDate,UserStatusEnum status);
+	
+	
+	/**
+	 * 更新用户密码
+	 * @param updatePwd
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	Result<Boolean> updateUserPwd(SsoUpdateUserPwd updatePwd);
+	
+	
+	/**
+	 * 更新用户状态
+	 * @param updateStatus
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	Result<Boolean> updateUserStatus(SsoUpdateUserStatus updateStatus);
 	
 	
 }

@@ -131,6 +131,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
 		user.setImage(defaulUserImageUrl);
+		user.setRole(0);
 		SessionCookie(user, httpServletResponse);
 	}
 

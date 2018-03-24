@@ -14,6 +14,8 @@ import com.blogforum.sso.common.exception.SSOBusinessException;
 import com.blogforum.sso.dao.mapper.UserMapper;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
+import com.blogforum.sso.facade.model.SsoUpdateUserPwd;
+import com.blogforum.sso.facade.model.SsoUpdateUserStatus;
 import com.blogforum.sso.facade.model.SsoUserPageRequest;
 import com.blogforum.sso.facade.model.UserVO;
 import com.blogforum.sso.facade.user.UserServerFacade;
@@ -73,7 +75,7 @@ public class UserServerFacadeImpl implements UserServerFacade {
 	@Override
 	public Result<Integer> getDateInUser(Date startDate, Date endDate, UserStatusEnum status) {
 		if (status == null) {
-			return new Result<Integer>(false, new ErrorContext(BizErrorEnum.ILLEGAL_PARAMETER, "status不可为空"), 0);
+			return new Result<Integer>(false, new ErrorContext(BizErrorEnum.ILLEGAL_PARAMETER, "获取指定时间段用户status不可为空"), 0);
 		}
 		UserDateIn userDateIn = new UserDateIn(startDate, endDate, status.getValue());
 		
@@ -81,6 +83,46 @@ public class UserServerFacadeImpl implements UserServerFacade {
 		
 		Result<Integer> result = new Result<Integer>(true, count);
 		return result;
+	}
+
+	@Override
+	public Result<Boolean> updateUserPwd(SsoUpdateUserPwd updatePwd) {
+		if (updatePwd == null) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"更新用户密码入参updatePwd不可为空");
+		}
+		
+		if (ObjectUtils.isStringAllNull( updatePwd.getNewPassword(),updatePwd.getUserId(),updatePwd.getUpdateUser())) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"更新用户密码入参字段不可为空");
+		}
+		
+		User user = new User();
+		user.setId(updatePwd.getUserId());
+		user.setPassword(updatePwd.getNewPassword());
+		user.setUpdateUser(updatePwd.getUpdateUser());
+		userService.updatePwd(user);
+		return new Result<Boolean>(true, true);
+	}
+
+	@Override
+	public Result<Boolean> updateUserStatus(SsoUpdateUserStatus updateStatus) {
+		if (updateStatus == null) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"更新用户状态入参updateStatus不可为空");
+		}
+		if (updateStatus.getStatus() == null) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"更新用户状态入参字段status不可为空");
+
+		}
+		if (ObjectUtils.isStringAllNull(updateStatus.getUserId(),updateStatus.getUserId())) {
+			throw new SSOBusinessException(BizErrorEnum.ILLEGAL_PARAMETER,"更新用户状态入参字段不可为空");
+		}
+		
+		User user = new User();
+		user.setId(updateStatus.getUserId());
+		user.setUpdateUser(updateStatus.getUpdateUser());
+		user.setStatus(updateStatus.getStatus().getValue());
+		userService.updateStatus(user);
+		
+		return new Result<Boolean>(true, true);
 	}
 
 }

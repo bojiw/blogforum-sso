@@ -153,8 +153,15 @@
 	<!-- 更新密码 -->
 	<update id="updatePwd" parameterType="com.blogforum.sso.pojo.entity.User">
 	    update user
-	    set password=#{password},salt=#{salt},update_date=#{updateDate}
+	    set password=#{password},salt=#{salt},update_date=#{updateDate},update_user=#{updateUser}
 	    where
+	    	id = #{id}
+	</update>
+	
+	<update id="updateStatus" parameterType="com.blogforum.sso.pojo.entity.User">
+	    update user
+	    set status = #{status},update_date=#{updateDate},update_user=#{updateUser}
+	    where 
 	    	id = #{id}
 	</update>
 	

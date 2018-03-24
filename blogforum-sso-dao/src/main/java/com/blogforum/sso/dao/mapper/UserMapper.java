@@ -2,8 +2,6 @@ package com.blogforum.sso.dao.mapper;
 
 
 
-import java.util.List;
-
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.pojo.vo.UserDateIn;
 
@@ -101,6 +99,14 @@ public interface UserMapper extends CrudMapper<User> {
 	 * @time: 2018年3月3日
 	 */
 	Integer getDateInUser(UserDateIn userDateIn);
+	
+	/**
+	 * 修改状态
+	 * @param user
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	void updateStatus(User user);
 	
 	
 	

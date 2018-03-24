@@ -58,6 +58,8 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		User newuser = userService.getUserByEmailORIphone(user);
 		Preconditions.checkNotNull(newuser, "没有找到该手机号注册用户");
 		newuser.setPassword(password);
+		//设置更新用户
+		newuser.setUpdateUser(newuser.getUsername());
 		//更新密码
 		userService.updatePwd(newuser);
 		
@@ -74,6 +76,8 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		User newuser = userService.getUserByEmailORIphone(user);
 		Preconditions.checkNotNull(newuser, "没有找到该邮箱注册用户");
 		newuser.setPassword(password);
+		//设置更新用户
+		newuser.setUpdateUser(newuser.getUsername());
 		//更新密码
 		userService.updatePwd(newuser);
 		
