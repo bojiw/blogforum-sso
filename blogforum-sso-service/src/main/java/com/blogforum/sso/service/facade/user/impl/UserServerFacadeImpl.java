@@ -33,7 +33,7 @@ public class UserServerFacadeImpl implements UserServerFacade {
 	
 	@Override
 	public Result<UserVO> getUserByUserId(String userId) {
-		User user = userService.getById(userId);
+		User user = userService.getAllStatus(userId);
 		BaseConverter<User, UserVO> converter = new BaseConverter<>();
 		UserVO userVO = converter.convert(user, UserVO.class);
 		return new Result<UserVO>(true, userVO);

@@ -61,6 +61,14 @@ public interface UserService extends BaseService<User> {
 	 */
 	void updateStatus(User user);
 	
+	/**
+	 * 获取所有状态用户
+	 * @param id
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年3月25日
+	 */
+	User getAllStatus(String id);
 	
 	
 }

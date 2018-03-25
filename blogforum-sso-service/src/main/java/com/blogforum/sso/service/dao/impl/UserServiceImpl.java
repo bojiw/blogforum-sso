@@ -112,5 +112,10 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		
 	}
 
+	@Override
+	public User getAllStatus(String id) {
+		return userMapper.getAllStatus(id);
+	}
+
 
 }
