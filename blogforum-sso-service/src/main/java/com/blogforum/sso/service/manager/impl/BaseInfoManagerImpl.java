@@ -88,11 +88,11 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 
 	@Override
 	public blogforumResult updateBaseInfo(BaseInfoUI baseInfoUI) {
-		checkBaseInfo(baseInfoUI);
 		User user = userService.getById(baseInfoUI.getId());
 		if (ObjectUtils.isObjAllNull(user)) {
 			throw new SSOBusinessException("找不到对应用户");
 		}
+		checkBaseInfo(baseInfoUI,user);
 		updateUserBaseInfo(user, baseInfoUI);
 		userService.updateBaseInfo(user);
 		updateSession(baseInfoUI, user);
@@ -120,7 +120,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	 * @author: wwd
 	 * @time: 2018年2月20日
 	 */
-	private void checkBaseInfo(BaseInfoUI baseInfoUI) {
+	private void checkBaseInfo(BaseInfoUI baseInfoUI,User user) {
 		Preconditions.checkNotNull(baseInfoUI.getUsername(), "用户名不能为空");
 		//对前端传的所在地省市进行效验
 		checkCity(baseInfoUI.getProvinceLocation(), baseInfoUI.getCityLocation());
@@ -129,10 +129,10 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		String iphone = baseInfoUI.getIphone();
 		String email = baseInfoUI.getEmail();
 		if (StringUtils.isNotEmpty(iphone)) {
-			checkIphone(iphone);
+			checkIphone(iphone,user.getIphone());
 		}
 		if (StringUtils.isNotEmpty(email)) {
-			checkEmail(email);
+			checkEmail(email,user.getEmail());
 		}
 
 	}
@@ -144,7 +144,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	 * @author: wwd
 	 * @time: 2018年2月25日
 	 */
-	private void checkIphone(String iphone){
+	private void checkIphone(String iphone,String userIphone){
 		//效验手机号
 		String regExp = "^1[34578]\\d{9}$";  
 		Pattern p = Pattern.compile(regExp);  
@@ -152,6 +152,10 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		if (!m.matches()) {
 			LoggerUtil.error(logger, "手机号:{0}", iphone);
 			throw new SSOBusinessException("手机号格式不对");
+		}
+		//如果前端传过来的手机号和数据库中的用户手机号一样 代表没有修改 不用效验
+		if (StringUtils.equals(userIphone, iphone)) {
+			return;
 		}
 		User user = new User();
 		user.setIphone(iphone);
@@ -165,7 +169,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	 * @author: wwd
 	 * @time: 2018年2月25日
 	 */
-	private void checkEmail(String email){
+	private void checkEmail(String email,String userEmail){
 		//效验手机号
 		String regExp = "/^[^@]+@.+\\..+$/";  
 		Pattern p = Pattern.compile(regExp);  
@@ -173,6 +177,10 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		if (!m.matches()) {
 			LoggerUtil.error(logger, "邮箱:{0}", email);
 			throw new SSOBusinessException("邮箱格式不对");
+		}
+		//如何前端传过来的邮箱号和数据库中的邮箱号一样 代表邮箱号没有换不需要做验证
+		if (StringUtils.equals(userEmail, email)) {
+			return;
 		}
 		User user = new User();
 		user.setEmail(email);
