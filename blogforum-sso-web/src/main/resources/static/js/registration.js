@@ -1,7 +1,11 @@
 $(function(){
+	//用户是否可以点击获取验证码
+	var isClick = true;
 	//手机注册码
 	$("#verification").click(function(){
-		
+		if(!isClick){
+			return;
+		}
 		var flag = verifica();
 		if(!flag){
 			return false;
@@ -42,6 +46,9 @@ $(function(){
 	});
 	//邮箱注册码
 	$("#mailverification").click(function(){
+		if(!isClick){
+			return;
+		}
 		var flag = verifica();
 		if(!flag){
 			return false;
@@ -85,7 +92,9 @@ $(function(){
 	        if (wait == 0) {
 	            o.html("获取验证码").removeAttr("disabled");
 	            wait = 60;
+	            isClick = true;
 	        } else {
+	        	isClick = false;
 	            o.attr("disabled", true);
 	            o.html("等待" + wait + " 秒重新点击发送!");
 	            wait--;

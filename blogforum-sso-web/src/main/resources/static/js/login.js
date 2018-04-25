@@ -39,7 +39,7 @@
 				//0.5秒后进行跳转 为了第一次注册的时候 留一点时间创建欢迎笔记
 				setTimeout(function(){
 					location.href=data.data;
-					},500);
+					},1000);
 				
 			}
 			
