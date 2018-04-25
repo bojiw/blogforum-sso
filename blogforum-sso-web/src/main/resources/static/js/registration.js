@@ -1,6 +1,8 @@
 $(function(){
 	//用户是否可以点击获取验证码
 	var isClick = true;
+	//注册按钮是否可以点击
+	var isClickRegistor = true;
 	//手机注册码
 	$("#verification").click(function(){
 		if(!isClick){
@@ -125,6 +127,9 @@ $(function(){
 	
 	//手机注册
 	$("#smsRegister").click(function(){
+		if(!isClickRegistor){
+			return;
+		}
 
 		var flag = verifica();
 		if(!flag){
@@ -144,7 +149,7 @@ $(function(){
 			return false;
 		}
 		
-		
+		isClickRegistor = false;
 		$.post("/user/loginregister",{
 			username:$("[name = 'username']").val(),
 			password:$("[name = 'password']").val(),
@@ -156,6 +161,7 @@ $(function(){
 			if(data.status != "200") {
 				layer.msg(data.msg);
 				$("[name='name']").focus();
+				isClickRegistor = true;
 			} else {
 				layer.msg("注册成功,开始跳转。。。");
 				location.href=data.data;
@@ -166,6 +172,9 @@ $(function(){
 	//邮箱注册
 	$("#mailRegister").click(function(){
 
+		if(!isClickRegistor){
+			return;
+		}
 		var flag = verifica();
 		if(!flag){
 			return false;
@@ -184,7 +193,7 @@ $(function(){
 			return false;
 		}
 		
-		
+		isClickRegistor = false;
 		$.post("/user/loginregister",{
 			username:$("[name = 'username']").val(),
 			password:$("[name = 'password']").val(),
@@ -196,6 +205,7 @@ $(function(){
 			if(data.status != "200") {
 				layer.msg(data.msg);
 				$("[name='name']").focus();
+				isClickRegistor = true;
 			} else {
 				layer.msg("注册成功,开始跳转。。。");
 				location.href=data.data;
