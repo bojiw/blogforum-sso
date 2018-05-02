@@ -16,12 +16,14 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.PageHelper;
 
 @SpringBootApplication
 @ServletComponentScan
+@EnableTransactionManagement //开启事务
 @MapperScan("com.blogforum.sso.dao.mapper")
 public class Starter extends SpringBootServletInitializer{
 

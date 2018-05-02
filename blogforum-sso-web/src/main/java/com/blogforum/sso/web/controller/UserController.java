@@ -25,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	private LoginRegisterFactory	loginRegisterFactory;
+	
+	@Autowired
+	private UserService userService;
 
 	@PostMapping("/loginregister")
 	public blogforumResult loginregister(String cmCode, User user, String verificationCode,
@@ -38,10 +41,6 @@ public class UserController {
 		return loginRegisterFactory.getManager(cmCode).execute(context);
 	}
 	
-	@Autowired
-	private UserService userService;
-	
-
 	@GetMapping("getCount")
 	public blogforumResult getCount(){
 		//测试

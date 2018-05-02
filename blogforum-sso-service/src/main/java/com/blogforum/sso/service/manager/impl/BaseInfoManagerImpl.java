@@ -171,7 +171,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 	 */
 	private void checkEmail(String email,String userEmail){
 		//效验手机号
-		String regExp = "/^[^@]+@.+\\..+$/";  
+		String regExp = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";  
 		Pattern p = Pattern.compile(regExp);  
 		Matcher m = p.matcher(email); 
 		if (!m.matches()) {
@@ -187,7 +187,6 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		User newUser = userService.getUserByEmailORIphone(user);
 		Preconditions.checkNull(newUser, SSOBizError.EMAIL_ISREGISTER);
 	}
-	
 	
 	
 	/**
