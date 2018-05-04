@@ -1,5 +1,8 @@
-# blogforum-sso
+﻿# blogforum-sso
 博记系统单点登录子系统
 
 # 简介
 blogforum-sso系统是博记系统对客的单点登录系统,只要在sso登录以后访问其他系统可以直接访问,而不用再次登录时序图如下
+
+
+
