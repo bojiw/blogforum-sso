@@ -1,6 +1,6 @@
 package com.blogforum.sso.service.rabbitmq.producer;
 
-import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
+import com.blogforum.sso.common.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.facade.enums.SsoMsgRouterKeyEnum;
 
 /**

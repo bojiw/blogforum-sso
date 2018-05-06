@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
+import com.blogforum.sso.common.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.service.rabbitmq.callback.MsgConfirmCallbackListener;
 import com.blogforum.sso.service.rabbitmq.callback.MsgReturnCallbackListener;
 
@@ -83,10 +83,12 @@ public class AmqpConfig {
 		return new FanoutExchange(SsoMsgExchangeNameEnum.SSO_FANOUT_INIT_USER.getName(), true, false);
 	}
 	
+	
 	@Bean
 	public FanoutExchange smsFanoutExchange() {
 		return new FanoutExchange(SsoMsgExchangeNameEnum.SSO_FANOUT_VERIFICATION_SMS.getName(), true, false);
 	}
+
 	
 	@Bean
 	public FanoutExchange mailFanoutExchange() {

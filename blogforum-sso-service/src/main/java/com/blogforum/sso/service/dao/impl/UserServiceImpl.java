@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blogforum.common.tools.BaseConverter;
+import com.blogforum.sso.common.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.common.utils.MD5SaltUtils;
 import com.blogforum.sso.dao.mapper.UserMapper;
-import com.blogforum.sso.facade.enums.SsoMsgExchangeNameEnum;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
 import com.blogforum.sso.facade.model.SsoUserPageRequest;
