@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.blogforum.common.tools.IpUtils;
+import com.blogforum.common.tools.LoggerUtil;
 /**
  * aop打印http日志类
  * @author wwd
@@ -23,7 +24,7 @@ import com.blogforum.common.tools.IpUtils;
 @Component
 public class HttpAspect {
 	
-	private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(HttpAspect.class);
 
 	@Pointcut("execution(public * com.blogforum.sso.web.controller.*.*(..))")
 	public void log(){
@@ -38,8 +39,9 @@ public class HttpAspect {
 		HttpServletRequest request = attributes.getRequest();
 		//获取真实ip
 		String ip = IpUtils.getIp(request);
-		logger.info("ip地址为：{}",ip);
-		logger.info(JSON.toJSONString(request.getParameterMap()));
+		LoggerUtil.info(LOGGER, "请求ip地址为：{0}",ip);
+		LoggerUtil.info(LOGGER, "入参为：{0}",JSON.toJSONString(request.getParameterMap()));
+		LoggerUtil.info(LOGGER, "请求路径为：{0}",request.getRequestURI());
 	}
 	
 
@@ -48,7 +50,8 @@ public class HttpAspect {
 	 */
 	@AfterReturning(returning = "object",pointcut = "log()")
 	public void doAfterReturning(Object object){
-		logger.info(JSON.toJSONString(object));
+		String jsonString = JSON.toJSONString(object);
+		LoggerUtil.info(LOGGER, "调用成功,返回参数:{0}",jsonString.length() < 600 ? jsonString : "返回参数长度大于600");
 	}
 	
 }
