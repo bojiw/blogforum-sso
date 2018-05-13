@@ -169,6 +169,7 @@
 	<sql id="user">
 	    u.id,
 	    u.username,
+	    u.password,
 	    u.salt,
 	    u.role,
 	    u.email,
@@ -190,6 +191,7 @@
     <resultMap type="com.blogforum.sso.pojo.entity.User" id="userlist">
         <result property="id" column="id" />
         <result property="username" column="username"/>
+        <result property="password" column="password"/>
         <result property="salt" column="salt"/>
         <result property="email" column="email"/>
         <result property="role" column="role"/>
