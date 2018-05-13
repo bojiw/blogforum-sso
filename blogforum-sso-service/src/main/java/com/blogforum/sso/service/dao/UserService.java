@@ -35,14 +35,16 @@ public interface UserService extends BaseService<User> {
 	 */
 	User getById(String id);
 	
+
 	/**
-	 * 根据邮件或者手机号获取用户
-	 * @param uesr
+	 * 通过用户名或邮箱或手机号获取用户 如果checkPassword为true 还需要对比下密码是否一样 不一样获取用户为空
+	 * @param user
+	 * @param checkPassword
 	 * @return
 	 * @author: wwd
-	 * @time: 2017年11月8日
+	 * @time: 2018年5月13日
 	 */
-	User getUserByEmailORIphone(User uesr);
+	User getUserByNameOREmailORIphoneAndPwd(User user,Boolean checkPassword);
 	
 	/**
 	 * 分页查询用户

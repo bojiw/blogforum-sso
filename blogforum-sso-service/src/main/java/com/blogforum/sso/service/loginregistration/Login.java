@@ -58,13 +58,13 @@ public class Login extends AbstractLoginRegister {
 	 */
 	private void isUserAndsetSession(User user, HttpServletResponse httpServletResponse) {
 		//获取数据库中用户名对应的salt
-		User saltUser = userMapper.getUserByNameOREmailORIphone(user);
+		User saltUser = getUserByNameOREmailORIphone(user);
 		Preconditions.checkNotNull(saltUser, BizErrorEnum.NO_USER);
 		//使用salt对用户上传的密码进行加密再重新设置
 		String encodePWD = MD5SaltUtils.encode(user.getPassword(), saltUser.getSalt());
 		user.setPassword(encodePWD);
 		//通过用户名密码获取用户
-		User newUser = userMapper.getUserByPwdNameOREmailORIphone(user);
+		User newUser = userService.getUserByNameOREmailORIphoneAndPwd(user,true);
 		Preconditions.checkNotNull(newUser, BizErrorEnum.FAIL_USERPWD);
 		//去掉保存的密码
 		newUser.setPassword("");
@@ -72,5 +72,4 @@ public class Login extends AbstractLoginRegister {
 		SessionCookie(newUser, httpServletResponse);
 	}
 	
-
 }

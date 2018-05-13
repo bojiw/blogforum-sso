@@ -78,10 +78,6 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		return user;
 	}
 
-	@Override
-	public User getUserByEmailORIphone(User uesr) {
-		return userMapper.getUserByEmailORIphone(uesr);
-	}
 
 	@Override
 	public SsoPage<UserVO> queryAllUserPage(SsoUserPageRequest request) {
@@ -117,5 +113,39 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 		return userMapper.getAllStatus(id);
 	}
 
+
+	/**
+	 * 数据库的密码和前端传过来的密码是否一样
+	 * @param dbUser
+	 * @param uiUser
+	 * @param checkPassword 为false代表不对密码做效验
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年5月13日
+	 */
+	private Boolean passwordEquals(User dbUser,User uiUser,Boolean checkPassword){
+		if (checkPassword) {
+			return StringUtils.equals(dbUser.getPassword(), uiUser.getPassword());
+		}
+		return true;
+		
+	}
+
+	@Override
+	public User getUserByNameOREmailORIphoneAndPwd(User user, Boolean checkPassword) {
+		User userByName = userMapper.getUserByName(user);
+		if (userByName != null && passwordEquals(userByName, user,checkPassword)) {
+			return userByName;
+		}
+		User userByIphone = userMapper.getUserByIphone(user);
+		if (userByIphone != null && passwordEquals(userByName, user,checkPassword)) {
+			return userByIphone;
+		}
+		User userByEmail = userMapper.getUserByEmail(user);
+		if (userByEmail != null && passwordEquals(userByName, user,checkPassword)) {
+			return userByEmail;
+		}
+		return null;
+	}
 
 }

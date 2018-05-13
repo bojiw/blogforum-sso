@@ -52,33 +52,26 @@
 	    username = #{username} and status = '0'
 	    
 	</select>
-	<select id="getUserByEmailORIphone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
-	    select
+	<select id="getUserByIpone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
+	    select 
+	    u.salt,
 	    <include refid="user"/>
 	    from user u
 	    where
-	    email = #{email} or iphone = #{iphone} and status = '0'
+	    iphone = #{iphone} and status = '0'
+	    
 	</select>
 	
-	
+	<select id="getUserByEmail" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
+	    select 
+	    u.salt,
+	    <include refid="user"/>
+	    from user u
+	    where
+	    email = #{email} and status = '0'
+	    
+	</select>
 
-	<select id="getUserByNameOREmailORIphone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
-	    select
-	    <include refid="user"/>
-	    from user u
-	    where
-	    username = #{username} or email = #{email} or iphone = #{iphone} and status = '0'
-	</select>
-	
-	
-	<select id="getUserByPwdNameOREmailORIphone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
-	    select
-	    <include refid="user"/>
-	    from user u
-	    where
-	    password = #{password} and ( username = #{username} or email = #{email} or iphone = #{iphone}) and status = '0'
-	</select>
-	
 	
 	<select id="getById" parameterType="java.lang.String" resultType="com.blogforum.sso.pojo.entity.User">
 	    select

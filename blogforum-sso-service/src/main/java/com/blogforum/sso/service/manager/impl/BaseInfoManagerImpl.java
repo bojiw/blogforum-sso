@@ -159,7 +159,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		}
 		User user = new User();
 		user.setIphone(iphone);
-		User newUser = userService.getUserByEmailORIphone(user);
+		User newUser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNull(newUser, SSOBizError.IPHONE_ISREGISTER);
 	}
 	
@@ -184,7 +184,7 @@ public class BaseInfoManagerImpl implements BaseInfoManager {
 		}
 		User user = new User();
 		user.setEmail(email);
-		User newUser = userService.getUserByEmailORIphone(user);
+		User newUser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNull(newUser, SSOBizError.EMAIL_ISREGISTER);
 	}
 	

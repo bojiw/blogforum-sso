@@ -29,6 +29,9 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	/** 用户表dao */
 	@Autowired
 	protected UserMapper	userMapper;
+	/** 用户服务 */
+	@Autowired
+	protected UserService	userService;
 
 	/** session过期时间 */
 	@Value("${myValue.session_time}")
@@ -48,9 +51,6 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 	/** 发送验证码服务 */
 	@Autowired
 	protected VerificationCodeSend verificationCodeSend;
-
-	@Autowired
-	protected UserService		userService;
 
 	/** note笔记系统地址 */
 	@Value("${myValue.noteServerUrl}")
@@ -91,7 +91,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		checkUserPwd(user);
 		checkUserAndVeCode(user, verificationcode);
 		Preconditions.checkNotNull(user.getEmail(), SSOBizError.EMAIL_NOTNULL);
-		User newuser = userMapper.getUserByEmailORIphone(user);
+		User newuser = getUserByNameOREmailORIphone(user);
 		Preconditions.checkNull(newuser, SSOBizError.EMAIL_ISREGISTER);
 	}
 
@@ -106,7 +106,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		checkUserPwd(user);
 		checkUserAndVeCode(user, verificationcode);
 		Preconditions.checkNotNull(user.getIphone(), SSOBizError.IPHONE_NOTNULL);
-		User newUser = userMapper.getUserByEmailORIphone(user);
+		User newUser = getUserByNameOREmailORIphone(user);
 		Preconditions.checkNull(newUser, SSOBizError.IPHONE_ISREGISTER);
 	}
 
@@ -143,5 +143,28 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token, "/", DOMAIN);
 	}
 
+	
+	/**
+	 * 根据用户名或者邮箱号或者手机号获取用户
+	 * @param user
+	 * @return
+	 * @author: wwd
+	 * @time: 2018年5月13日
+	 */
+	protected User getUserByNameOREmailORIphone(User user){
+		User userByName = userMapper.getUserByName(user);
+		if (userByName != null) {
+			return userByName;
+		}
+		User userByIphone = userMapper.getUserByIphone(user);
+		if (userByIphone != null) {
+			return userByIphone;
+		}
+		User userByEmail = userMapper.getUserByEmail(user);
+		if (userByEmail != null) {
+			return userByEmail;
+		}
+		return null;
+	}
 
 }

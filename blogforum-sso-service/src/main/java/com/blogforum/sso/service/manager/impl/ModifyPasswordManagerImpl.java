@@ -26,7 +26,7 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		Preconditions.checkNotNull(iphone, SSOBizError.IPHONE_NOTNULL);
 		User user = new User();
 		user.setIphone(iphone);
-		User newuser = userService.getUserByEmailORIphone(user);
+		User newuser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNotNull(newuser, "没有找到该手机号注册用户");
 		//发送短信验证码
 		verificationCodeSend.SendIphoneVerificationCode(iphone);
@@ -39,7 +39,7 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		Preconditions.checkNotNull(email, SSOBizError.EMAIL_NOTNULL);
 		User user = new User();
 		user.setEmail(email);
-		User newuser = userService.getUserByEmailORIphone(user);
+		User newuser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNotNull(newuser, "没有找到该邮箱注册用户");
 		//发送验证码
 		verificationCodeSend.SendEmailVerificationCode(email, "修改密码");
@@ -55,7 +55,7 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		//效验手机号
 		User user = new User();
 		user.setIphone(iphone);
-		User newuser = userService.getUserByEmailORIphone(user);
+		User newuser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNotNull(newuser, "没有找到该手机号注册用户");
 		newuser.setPassword(password);
 		//设置更新用户
@@ -73,7 +73,7 @@ public class ModifyPasswordManagerImpl implements ModifyPasswordManager {
 		//效验手机号
 		User user = new User();
 		user.setEmail(email);
-		User newuser = userService.getUserByEmailORIphone(user);
+		User newuser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNotNull(newuser, "没有找到该邮箱注册用户");
 		newuser.setPassword(password);
 		//设置更新用户
