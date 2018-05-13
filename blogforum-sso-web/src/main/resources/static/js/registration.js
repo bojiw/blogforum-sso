@@ -164,7 +164,11 @@ $(function(){
 				isClickRegistor = true;
 			} else {
 				layer.msg("注册成功,开始跳转。。。");
-				location.href=data.data;
+	            setTimeout(function() {
+	            	location.href=data.data;
+	            },
+	            600)
+				
 			}
 		});
 	
@@ -208,7 +212,10 @@ $(function(){
 				isClickRegistor = true;
 			} else {
 				layer.msg("注册成功,开始跳转。。。");
-				location.href=data.data;
+	            setTimeout(function() {
+	            	location.href=data.data;
+	            },
+	            600)
 			}
 		});
 	
