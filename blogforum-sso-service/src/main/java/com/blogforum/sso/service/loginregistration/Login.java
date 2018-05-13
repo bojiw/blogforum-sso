@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.tools.CookieUtils;
 import com.blogforum.common.tools.blogforumResult;
-import com.blogforum.sso.common.utils.MD5SaltUtils;
 import com.blogforum.sso.common.utils.Preconditions;
 import com.blogforum.sso.pojo.entity.User;
 import com.blogforum.sso.service.constant.ServiceConstant;
@@ -57,13 +56,7 @@ public class Login extends AbstractLoginRegister {
 	 * @time: 2017年7月16日
 	 */
 	private void isUserAndsetSession(User user, HttpServletResponse httpServletResponse) {
-		//获取数据库中用户名对应的salt
-		User saltUser = getUserByNameOREmailORIphone(user);
-		Preconditions.checkNotNull(saltUser, BizErrorEnum.NO_USER);
-		//使用salt对用户上传的密码进行加密再重新设置
-		String encodePWD = MD5SaltUtils.encode(user.getPassword(), saltUser.getSalt());
-		user.setPassword(encodePWD);
-		//通过用户名密码获取用户
+		//通过用户名或手机号或邮箱号和密码获取用户
 		User newUser = userService.getUserByNameOREmailORIphoneAndPwd(user,true);
 		Preconditions.checkNotNull(newUser, BizErrorEnum.FAIL_USERPWD);
 		//去掉保存的密码

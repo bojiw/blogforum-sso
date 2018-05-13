@@ -125,7 +125,9 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 	 */
 	private Boolean passwordEquals(User dbUser,User uiUser,Boolean checkPassword){
 		if (checkPassword) {
-			return StringUtils.equals(dbUser.getPassword(), uiUser.getPassword());
+			//使用salt对用户上传的密码进行加密再重新设置
+			String encodePWD = MD5SaltUtils.encode(uiUser.getPassword(), dbUser.getSalt());
+			return StringUtils.equals(dbUser.getPassword(), encodePWD);
 		}
 		return true;
 		

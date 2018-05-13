@@ -91,7 +91,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		checkUserPwd(user);
 		checkUserAndVeCode(user, verificationcode);
 		Preconditions.checkNotNull(user.getEmail(), SSOBizError.EMAIL_NOTNULL);
-		User newuser = getUserByNameOREmailORIphone(user);
+		User newuser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNull(newuser, SSOBizError.EMAIL_ISREGISTER);
 	}
 
@@ -106,7 +106,7 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		checkUserPwd(user);
 		checkUserAndVeCode(user, verificationcode);
 		Preconditions.checkNotNull(user.getIphone(), SSOBizError.IPHONE_NOTNULL);
-		User newUser = getUserByNameOREmailORIphone(user);
+		User newUser = userService.getUserByNameOREmailORIphoneAndPwd(user,false);
 		Preconditions.checkNull(newUser, SSOBizError.IPHONE_ISREGISTER);
 	}
 
@@ -141,30 +141,6 @@ public abstract class AbstractLoginRegister implements LoginRegister {
 		newToken.append(SESSION_KEY).append(":").append(token);
 		redisClient.setExpire(newToken.toString(), user, SESSION_TIME);
 		CookieUtils.setCookie(httpServletResponse, ServiceConstant.cookieToken, token, "/", DOMAIN);
-	}
-
-	
-	/**
-	 * 根据用户名或者邮箱号或者手机号获取用户
-	 * @param user
-	 * @return
-	 * @author: wwd
-	 * @time: 2018年5月13日
-	 */
-	protected User getUserByNameOREmailORIphone(User user){
-		User userByName = userMapper.getUserByName(user);
-		if (userByName != null) {
-			return userByName;
-		}
-		User userByIphone = userMapper.getUserByIphone(user);
-		if (userByIphone != null) {
-			return userByIphone;
-		}
-		User userByEmail = userMapper.getUserByEmail(user);
-		if (userByEmail != null) {
-			return userByEmail;
-		}
-		return null;
 	}
 
 }

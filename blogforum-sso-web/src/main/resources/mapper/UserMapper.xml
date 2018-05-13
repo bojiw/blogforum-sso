@@ -52,7 +52,7 @@
 	    username = #{username} and status = '0'
 	    
 	</select>
-	<select id="getUserByIpone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
+	<select id="getUserByIphone" parameterType="com.blogforum.sso.pojo.entity.User" resultType="com.blogforum.sso.pojo.entity.User">
 	    select 
 	    u.salt,
 	    <include refid="user"/>
