@@ -140,11 +140,11 @@ public class UserServiceImpl  extends CrudService<User> implements UserService {
 			return userByName;
 		}
 		User userByIphone = userMapper.getUserByIphone(user);
-		if (userByIphone != null && passwordEquals(userByName, user,checkPassword)) {
+		if (userByIphone != null && passwordEquals(userByIphone, user,checkPassword)) {
 			return userByIphone;
 		}
 		User userByEmail = userMapper.getUserByEmail(user);
-		if (userByEmail != null && passwordEquals(userByName, user,checkPassword)) {
+		if (userByEmail != null && passwordEquals(userByEmail, user,checkPassword)) {
 			return userByEmail;
 		}
 		return null;
