@@ -110,7 +110,7 @@ rabbitmq:
 myValue: 
   ssoServerUrl: http://sso.bojiw.com
   #session过期时间单位为秒
-  session_time: 18000
+  session_time: 3600000
   #注册时保存到redis的值
   register_key: REGISTER_KEY
   #笔记系统地址
